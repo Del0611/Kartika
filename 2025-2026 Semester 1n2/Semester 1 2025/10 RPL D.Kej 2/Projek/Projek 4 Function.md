@@ -1,23 +1,18 @@
 ### 1. Fungsi Void untuk Cetak Informasi (Sederhana)
 
-Fungsi berjenis `void` tidak mengembalikan nilai. Fungsi ini sangat cocok digunakan untuk membungkus baris kode yang tugasnya hanya menampilkan teks atau format laporan agar kode di `main` terlihat lebih rapi.
+Fungsi ini tidak menggunakan kata kunci `return`, sehingga secara otomatis bertindak seperti fungsi *void* di Java.
 
-```java
-public class ProgramSalam {
+```python
+# Membuat fungsi bernama 'cetak_header' menggunakan kata kunci def
+def cetak_header(nama_toko):
+    print("==================================")
+    # .upper() digunakan untuk mengubah teks menjadi huruf kapital semua
+    print(f"      SISTEM KASIR {nama_toko.upper()}")
+    print("==================================")
 
-    // Membuat fungsi void bernama 'cetakHeader'
-    static void cetakHeader(String namaToko) {
-        System.out.println("==================================");
-        System.out.println("      SISTEM KASIR " + namaToko.toUpperCase());
-        System.out.println("==================================");
-    }
-
-    public static void main(String[] args) {
-        // Memanggil fungsi dengan mengirimkan argumen/parameter teks
-        cetakHeader("Toko Jaya Komputer");
-        System.out.println("Status Sistem: Siap Melayani Pelanggan.");
-    }
-}
+# Memanggil fungsi dengan mengirimkan argumen teks
+cetak_header("Toko Jaya Komputer")
+print("Status Sistem: Siap Melayani Pelanggan.")
 
 ```
 
@@ -25,28 +20,22 @@ public class ProgramSalam {
 
 ### 2. Fungsi Non-Void untuk Perhitungan Matematika
 
-Fungsi ini memiliki tipe data kembalian (`int`) dan wajib menggunakan kata kunci `return`. Fungsi menerima dua parameter input, mengalikan nilainya, lalu melempar hasilnya kembali ke baris kode yang memanggilnya.
+Sama seperti Java, kita menggunakan kata kunci `return` untuk melempar kembali hasil perhitungan ke baris kode yang memanggilnya.
 
-```java
-public class HitungMateri {
+```python
+# Fungsi untuk menghitung luas persegi panjang
+def hitung_luas(panjang, lebar):
+    hasil_luas = panjang * lebar
+    return hasil_luas  # Mengembalikan nilai
 
-    // Fungsi non-void untuk menghitung luas persegi panjang
-    static int hitungLuas(int panjang, int lebar) {
-        int hasilLuas = panjang * lebar;
-        return hasilLuas; // Mengembalikan nilai integer
-    }
+p = 15
+l = 6
 
-    public static void main(String[] args) {
-        int p = 15;
-        int l = 6;
+# Memanggil fungsi dan menyimpan hasil kembaliannya ke dalam variabel 'luas'
+luas = hitung_luas(p, l)
 
-        // Memanggil fungsi dan menyimpan hasil kembaliannya ke dalam variabel 'luas'
-        int luas = hitungLuas(p, l);
-
-        System.out.println("Dimensi Ruangan: " + p + " m x " + l + " m");
-        System.out.println("Total Luas     : " + luas + " meter persegi");
-    }
-}
+print(f"Dimensi Ruangan: {p} m x {l} m")
+print(f"Total Luas     : {luas} meter persegi")
 
 ```
 
@@ -54,29 +43,22 @@ public class HitungMateri {
 
 ### 3. Fungsi dengan Logika Kondisi (Cek Status)
 
-Fungsi tidak hanya berisi perhitungan matematika biasa, tetapi juga bisa disisipi struktur kondisi (`if-else`). Fungsi ini menerima satu parameter angka, memeriksa nilainya, lalu mengembalikan teks (`String`) yang sesuai.
+Struktur kondisinya menjadi jauh lebih ringkas tanpa tanda kurung kurawal.
 
-```java
-public class CekKelulusanFungsi {
+```python
+# Fungsi mengembalikan string berdasarkan evaluasi kondisi nilai
+def evaluasi_nilai(nilai_ujian):
+    kkm = 75
+    if nilai_ujian >= kkm:
+        return "LULUS"
+    else:
+        return "REMEDIAL"
 
-    // Fungsi mengembalikan String berdasarkan evaluasi kondisi nilai
-    static String evaluasiNilai(int nilaiUjian) {
-        int kkm = 75;
-        if (nilaiUjian >= kkm) {
-            return "LULUS";
-        } else {
-            return "REMEDIAL";
-        }
-    }
+nama_siswa = "Rian"
+skor = 73
 
-    public static void main(String[] args) {
-        String namaSiswa = "Rian";
-        int skor = 73;
-
-        // Memanggil fungsi di dalam perintah cetak
-        System.out.println("Siswa bernama " + namaSiswa + " dinyatakan: " + evaluasiNilai(skor));
-    }
-}
+# Memanggil fungsi langsung di dalam perintah print
+print(f"Siswa bernama {nama_siswa} dinyatakan: {evaluasi_nilai(skor)}")
 
 ```
 
@@ -84,28 +66,22 @@ public class CekKelulusanFungsi {
 
 ### 4. Fungsi untuk Konversi Suhu (Double / Pecahan)
 
-Program ini menggunakan fungsi untuk mengubah skala suhu dari Celsius ke Fahrenheit. Kasus ini menunjukkan bagaimana fungsi menangani tipe data pecahan (`double`) agar hasil pembagian dan perkaliannya tetap akurat.
+Karena Python otomatis memperlakukan angka desimal sebagai tipe data *float* (setara dengan *double* di Java), kita tidak perlu pusing menuliskan format tipe datanya.
 
-```java
-public class KonversiSuhu {
+```python
+# Fungsi mengonversi suhu Celsius ke Fahrenheit
+def celsius_to_fahrenheit(celsius):
+    # Rumus: (C * 9/5) + 32
+    return (celsius * 9.0 / 5.0) + 32.0
 
-    // Fungsi mengonversi suhu Celsius ke Fahrenheit
-    static double celsiusToFahrenheit(double celcius) {
-        // Rumus: (C * 9/5) + 32
-        return (celcius * 9.0 / 5.0) + 32.0;
-    }
+suhu_sekarang = 30.0
 
-    public static void main(String[] args) {
-        double suhuSekarang = 30.0;
-        
-        // Memanggil fungsi konversi
-        double fahrenheit = celsiusToFahrenheit(suhuSekarang);
+# Memanggil fungsi konversi
+fahrenheit = celsius_to_fahrenheit(suhu_sekarang)
 
-        System.out.println("Suhu Ruangan Saat Ini:");
-        System.out.println("-> " + suhuSekarang + " °C");
-        System.out.println("-> " + fahrenheit + " °F");
-    }
-}
+print("Suhu Ruangan Saat Ini:")
+print(f"-> {suhu_sekarang} °C")
+print(f"-> {fahrenheit} °F")
 
 ```
 
@@ -113,36 +89,29 @@ public class KonversiSuhu {
 
 ### 5. Fungsi dengan Perulangan (Hitung Faktorial)
 
-Fungsi juga bisa menampung proses perulangan di dalamnya. Program ini menghitung nilai faktorial dari sebuah angka (misalnya $4! = 4 \times 3 \times 2 \times 1$).
+Untuk melakukan perulangan mundur di Python menggunakan `for`, kita memanfaatkan fungsi `range(start, stop, step)`. Di sini kita gunakan nilai `step` sebesar `-1` agar loop berjalan mundur.
 
-```java
-public class HitungFaktorial {
-
-    // Fungsi non-void yang mengombinasikan perulangan di dalamnya
-    static int hitungFaktorial(int angka) {
-        int hasil = 1;
+```python
+# Fungsi yang mengombinasikan perulangan di dalamnya
+def hitung_faktorial(angka):
+    hasil = 1
+    
+    # range(angka, 0, -1) berjalan mundur dari nilai 'angka' hingga angka 1
+    for i in range(angka, 0, -1):
+        hasil *= i  # Akumulasi perkalian
         
-        // Loop berjalan mundur dari angka input hingga angka 1
-        for (int i = angka; i > 0; i--) {
-            hasil *= i; // Akumulasi perkalian
-        }
-        
-        return hasil;
-    }
+    return hasil
 
-    public static void main(String[] args) {
-        int bilangan = 5;
-        
-        // Memanggil fungsi faktorial
-        int totalFaktorial = hitungFaktorial(bilangan);
+bilangan = 5
 
-        System.out.println("Faktorial dari " + bilangan + " (" + bilangan + "!) adalah: " + totalFaktorial);
-    }
-}
+# Memanggil fungsi faktorial
+total_faktorial = hitung_faktorial(bilangan)
+
+print(f"Faktorial dari {bilangan} ({bilangan}!) adalah: {total_faktorial}")
 
 ```
 
 ---
 
 > **Tips Singkat:**
-> Keuntungan utama menggunakan fungsi adalah **Reusability** (kode bisa digunakan berulang kali). Jika kamu butuh menghitung luas persegi panjang 10 kali dengan angka yang berbeda-beda, kamu tidak perlu menulis ulang rumus perkaliannya 10 kali; cukup panggil fungsi `hitungLuas()` sebanyak 10 kali dengan argumen yang berbeda.
+> Di Python, penulisan fungsi harus ditaruh di bagian **atas** sebelum fungsi tersebut dipanggil oleh baris kode di bawahnya. Jika kamu memanggil sebuah fungsi sebelum baris `def`-nya ditulis, Python akan mengeluarkan eror `NameError`.
