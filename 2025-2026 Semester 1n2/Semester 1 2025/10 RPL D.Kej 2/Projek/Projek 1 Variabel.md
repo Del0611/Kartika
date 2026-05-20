@@ -1,9 +1,3 @@
-Pilihan yang menarik! Migrasi dari Java ke Python biasanya terasa sangat menyegarkan karena Python memiliki sintaksis yang jauh lebih ringkas. Di Python, kita tidak perlu membuat `class` atau fungsi `main` hanya untuk menjalankan kode sederhana, dan kita juga tidak perlu mendeklarasikan tipe data variabel secara eksplisit (*dynamic typing*).
-
-Berikut adalah konversi ketiga program tersebut ke dalam bahasa Python:
-
----
-
 ### 1. Program Data Diri (Menampilkan Variabel Dasar)
 
 Di Python, tipe data teks otomatis menjadi `str`, angka pecahan menjadi `float`, dan nilai boolean ditulis dengan huruf kapital di awal (`True` / `False`). Kita bisa menggunakan *f-string* (`f"..."`) untuk menyisipkan variabel ke dalam teks dengan rapi.
