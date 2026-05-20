@@ -1,34 +1,29 @@
 ### 1. Cek Kelayakan Kredit Rumah (KPR)
 
-Program ini menghitung sisa gaji setelah dikurangi cicilan, lalu menggunakan operator penghubung untuk mengecek apakah seseorang layak mengambil KPR berdasarkan sisa gaji **DAN** status badannya (apakah punya utang lain).
+Perhatikan bagaimana sintaksis `&& (!punyaUtangLain)` di Java bertransformasi menjadi `and not punya_utang_lain` yang jauh lebih bersih di Python.
 
-```java
-public class KelayakanKPR {
-    public static void main(String[] args) {
-        double gajiBulanan = 8500000;
-        double cicilanKPR = 2500000;
-        boolean punyaUtangLain = false; // true jika punya utang lain
+```python
+gaji_bulanan = 8500000
+cicilan_kpr = 2500000
+punya_utang_lain = False  # Nilai boolean di Python diawali huruf kapital
 
-        // Operator Matematika: Pengurangan
-        double sisaGaji = gajiBulanan - cicilanKPR;
-        double batasSisaMinimal = 5000000;
+# Operator Matematika: Pengurangan
+sisa_gaji = gaji_bulanan - cicilan_kpr
+batas_sisa_minimal = 5000000
 
-        // Operator Penghubung: Perbandingan (>=) dan Logika DAN (&&) serta TIDAK (!)
-        // Layak jika sisa gaji >= 5 juta DAN tidak punya utang lain
-        boolean layakKPR = (sisaGaji >= batasSisaMinimal) && (!punyaUtangLain);
+# Operator Penghubung: Perbandingan (>=) dan Logika DAN (and) serta TIDAK (not)
+# Layak jika sisa gaji >= 5 juta DAN tidak punya utang lain
+layak_kpr = (sisa_gaji >= batas_sisa_minimal) and not punya_utang_lain
 
-        System.out.println("Gaji Bulanan   : Rp " + gajiBulanan);
-        System.out.println("Cicilan KPR    : Rp " + cicilanKPR);
-        System.out.println("Sisa Gaji Anda : Rp " + sisaGaji);
-        System.out.println("---------------------------------");
+print(f"Gaji Bulanan   : Rp {gaji_bulanan}")
+print(f"Cicilan KPR    : Rp {cicilan_kpr}")
+print(f"Sisa Gaji Anda : Rp {sisa_gaji}")
+print("---------------------------------")
 
-        if (layakKPR) {
-            System.out.println("Status Permohonan: DISETUJUI ✅");
-        } else {
-            System.out.println("Status Permohonan: DITOLAK ❌");
-        }
-    }
-}
+if layak_kpr:
+    print("Status Permohonan: DISETUJUI ✅")
+else:
+    print("Status Permohonan: DITOLAK ❌")
 
 ```
 
@@ -36,34 +31,29 @@ public class KelayakanKPR {
 
 ### 2. Validasi Kupon Diskon Belanja
 
-Program ini menghitung total belanja setelah dipotong diskon konvensional. Kemudian, program menggunakan operator logika ATAU (`||`) untuk menentukan apakah pelanggan berhak mendapatkan *cashback* tambahan berdasarkan total belanja akhir **ATAU** status keanggotaan mereka.
+Di sini, operator logika ATAU (`||`) digantikan dengan kata kunci `or`.
 
-```java
-public class PromoBelanja {
-    public static void main(String[] args) {
-        double totalBelanjaAwal = 350000;
-        double diskonToko = 50000;
-        boolean isMemberVIP = false;
+```python
+total_belanja_awal = 350000
+diskon_toko = 50000
+is_member_vip = False
 
-        // Operator Matematika: Pengurangan
-        double totalAkhir = totalBelanjaAwal - diskonToko;
+# Operator Matematika: Pengurangan
+total_akhir = total_belanja_awal - diskon_toko
 
-        // Operator Penghubung: Perbandingan (>) dan Logika ATAU (||)
-        // Dapat cashback jika total belanja akhir di atas 250.000 ATAU dia member VIP
-        boolean dapatCashbackTambahan = (totalAkhir > 250000) || isMemberVIP;
+# Operator Penghubung: Perbandingan (>) dan Logika ATAU (or)
+# Dapat cashback jika total belanja akhir di atas 250.000 ATAU dia member VIP
+dapat_cashback_tambahan = (total_akhir > 250000) or is_member_vip
 
-        System.out.println("Total Belanja Awal : Rp " + totalBelanjaAwal);
-        System.out.println("Potongan Diskon    : Rp " + diskonToko);
-        System.out.println("Total Bayar Akhir  : Rp " + totalAkhir);
-        System.out.println("---------------------------------");
+print(f"Total Belanja Awal : Rp {total_belanja_awal}")
+print(f"Potongan Diskon    : Rp {diskon_toko}")
+print(f"Total Bayar Akhir  : Rp {total_akhir}")
+print("---------------------------------")
 
-        if (dapatCashbackTambahan) {
-            System.out.println("Selamat! Anda mendapatkan voucher cashback tambahan Rp 20.000!");
-        } else {
-            System.out.println("Maaf, Anda belum memenuhi syarat untuk cashback tambahan.");
-        }
-    }
-}
+if dapat_cashback_tambahan:
+    print("Selamat! Anda mendapatkan voucher cashback tambahan Rp 20.000!")
+else:
+    print("Maaf, Anda belum memenuhi syarat untuk cashback tambahan.")
 
 ```
 
@@ -71,40 +61,35 @@ public class PromoBelanja {
 
 ### 3. Sistem Klasifikasi Nilai Siswa (Ujian & Absensi)
 
-Program ini menghitung nilai rata-rata dari dua ujian, lalu menentukan kelulusan berdasarkan aturan yang ketat: Nilai rata-rata harus memenuhi standar **DAN** persentase kehadiran tidak boleh kurang dari batas minimal.
+Kabar baik untuk program ketiga: Python secara default menggunakan **True Division** untuk operator `/`. Artinya, pembagian antar-angka bulat otomatis menghasilkan angka pecahan (*float*). Kita tidak perlu lagi melakukan *type casting* `(double)` seperti di Java!
 
-```java
-public class KelulusanAkademik {
-    public static void main(String[] args) {
-        double nilaiUjian1 = 80;
-        double nilaiUjian2 = 75;
-        
-        int totalPertemuan = 16;
-        int jumlahHadir = 11;
+```python
+nilai_ujian1 = 80
+nilai_ujian2 = 75
 
-        // Operator Matematika: Penjumlahan, Pembagian, dan Perkalian
-        double rataNilai = (nilaiUjian1 + nilaiUjian2) / 2;
-        double persentaseKehadiran = ((double) jumlahHadir / totalPertemuan) * 100;
+total_pertemuan = 16
+jumlah_hadir = 11
 
-        // Operator Penghubung: Perbandingan (>=) dan Logika DAN (&&)
-        // Lulus jika rata-rata >= 75 DAN kehadiran >= 75%
-        boolean statusLulus = (rataNilai >= 75.0) && (persentaseKehadiran >= 75.0);
+# Operator Matematika: Penjumlahan, Pembagian, dan Perkalian
+# Di Python, pembagian otomatis menghasilkan pecahan, tidak perlu type casting
+rata_nilai = (nilai_ujian1 + nilai_ujian2) / 2
+persentase_kehadiran = (jumlah_hadir / total_pertemuan) * 100
 
-        System.out.println("Rata-rata Nilai Ujian : " + rataNilai);
-        System.out.println("Persentase Kehadiran  : " + persentaseKehadiran + "%");
-        System.out.println("---------------------------------");
+# Operator Penghubung: Perbandingan (>=) dan Logika DAN (and)
+status_lulus = (rata_nilai >= 75.0) and (persentase_kehadiran >= 75.0)
 
-        if (statusLulus) {
-            System.out.println("Hasil Akhir: LULUS MATAKULIAH");
-        } else {
-            System.out.println("Hasil Akhir: TIDAK LULUS (Silakan hubungi dosen pengampu)");
-        }
-    }
-}
+print(f"Rata-rata Nilai Ujian : {rata_nilai}")
+print(f"Persentase Kehadiran  : {persentase_kehadiran}%")
+print("---------------------------------")
+
+if status_lulus:
+    print("Hasil Akhir: LULUS MATAKULIAH")
+else:
+    print("Hasil Akhir: TIDAK LULUS (Silakan hubungi dosen pengampu)")
 
 ```
 
 ---
 
 > **Tips Singkat:**
-> Pada Program ke-3, perhatikan bagian `((double) jumlahHadir / totalPertemuan)`. Di Java, jika angka bulat (`int`) dibagi dengan angka bulat, hasilnya akan ikut dibulatkan ke bawah (misal $11 / 16 = 0$). Proses mengubah salah satunya menjadi `double` disebut dengan **Type Casting**, agar hasil pembagiannya tetap berupa angka pecahan yang akurat ($0.6875$ atau $68.75\%$).
+> Selain pembagian otomatis (`/`), Python juga menyediakan operator `//` (Floor Division) jika kamu sengaja ingin hasil pembagiannya berupa angka bulat yang dibulatkan ke bawah (misalnya: `11 // 16` hasilnya `0`).
