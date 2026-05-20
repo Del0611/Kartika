@@ -1,24 +1,29 @@
+Pilihan yang menarik! Migrasi dari Java ke Python biasanya terasa sangat menyegarkan karena Python memiliki sintaksis yang jauh lebih ringkas. Di Python, kita tidak perlu membuat `class` atau fungsi `main` hanya untuk menjalankan kode sederhana, dan kita juga tidak perlu mendeklarasikan tipe data variabel secara eksplisit (*dynamic typing*).
+
+Berikut adalah konversi ketiga program tersebut ke dalam bahasa Python:
+
+---
+
 ### 1. Program Data Diri (Menampilkan Variabel Dasar)
 
-Program ini menggunakan beberapa tipe data standar seperti `String` (teks), `int` (angka bulat), `double` (angka pecahan), dan `boolean` (true/false) untuk menyimpan data seseorang.
+Di Python, tipe data teks otomatis menjadi `str`, angka pecahan menjadi `float`, dan nilai boolean ditulis dengan huruf kapital di awal (`True` / `False`). Kita bisa menggunakan *f-string* (`f"..."`) untuk menyisipkan variabel ke dalam teks dengan rapi.
 
-```java
-public class DataDiri {
-    public static void main(String[] args) {
-        // Deklarasi dan inisialisasi variabel
-        String nama = "Budi Santoso";
-        int umur = 20;
-        double tinggiBadan = 175.5;
-        boolean isMahasiswa = true;
+```python
+# Deklarasi dan inisialisasi variabel (tanpa menentukan tipe data)
+nama = "Budi Santoso"
+umur = 20
+tinggi_badan = 175.5  # Python menggunakan snake_case untuk nama variabel
+is_mahasiswa = True
 
-        // Menampilkan nilai variabel ke layar
-        System.out.println("--- Data Diri ---");
-        System.out.println("Nama           : " + nama);
-        System.out.println("Umur           : " + umur + " tahun");
-        System.out.println("Tinggi Badan   : " + tinggiBadan + " cm");
-        System.out.println("Status Kuliah  : " + (isMahasiswa ? "Aktif" : "Tidak Aktif"));
-    }
-}
+# Menampilkan nilai variabel ke layar
+print("--- Data Diri ---")
+print(f"Nama           : {nama}")
+print(f"Umur           : {umur} tahun")
+print(f"Tinggi Badan   : {tinggi_badan} cm")
+
+# Menggunakan operator ternary khas Python untuk cek status kuliah
+status_kuliah = "Aktif" if is_mahasiswa else "Tidak Aktif"
+print(f"Status Kuliah  : {status_kuliah}")
 
 ```
 
@@ -26,24 +31,20 @@ public class DataDiri {
 
 ### 2. Program Hitung Luas Persegi Panjang (Manipulasi Variabel)
 
-Program ini menunjukkan bagaimana kita bisa menggunakan variabel untuk menyimpan nilai, lalu menggunakan variabel tersebut dalam sebuah operasi matematika (perkalian).
+Sintaksis perhitungan matematika di Python hampir sama persis dengan Java. Perbedaannya, proses penggabungan teks saat cetak menjadi jauh lebih mudah dengan *f-string*.
 
-```java
-public class HitungLuas {
-    public static void main(String[] args) {
-        // Variabel untuk menyimpan dimensi
-        int panjang = 12;
-        int lebar = 7;
-        
-        // Variabel untuk menyimpan hasil perhitungan
-        int luas = panjang * lebar;
+```python
+# Variabel untuk menyimpan dimensi
+panjang = 12
+lebar = 7
 
-        // Menampilkan hasil
-        System.out.println("Panjang persegi panjang : " + panjang + " cm");
-        System.out.println("Lebar persegi panjang   : " + lebar + " cm");
-        System.out.println("Luasnya adalah          : " + luas + " cm²");
-    }
-}
+# Variabel untuk menyimpan hasil perhitungan
+luas = panjang * lebar
+
+# Menampilkan hasil
+print(f"Panjang persegi panjang : {panjang} cm")
+print(f"Lebar persegi panjang   : {lebar} cm")
+print(f"Luasnya adalah          : {luas} cm²")
 
 ```
 
@@ -51,39 +52,35 @@ public class HitungLuas {
 
 ### 3. Program Kasir Sederhana (Variabel untuk Perhitungan)
 
-Program ini mensimulasikan total belanjaan di toko. Di sini kita menggunakan variabel untuk harga barang, jumlah yang dibeli, total harga, hingga diskon yang didapat.
+Perhitungan diskon dan total belanjaan menjadi lebih bersih tanpa ada *boilerplate code* (kode pembungkus) khas Java.
 
-```java
-public class KasirSederhana {
-    public static void main(String[] args) {
-        // Input data barang
-        String namaBarang = "Sepatu Running";
-        double hargaSatuan = 250000;
-        int jumlahBeli = 2;
-        double persenDiskon = 0.10; // Diskon 10%
+```python
+# Input data barang
+nama_barang = "Sepatu Running"
+harga_satuan = 250000
+jumlah_beli = 2
+persen_diskon = 0.10  # Diskon 10%
 
-        // Menghitung total awal dan potongan harga
-        double totalAwal = hargaSatuan * jumlahBeli;
-        double potonganDiskon = totalAwal * persenDiskon;
-        double totalBayar = totalAwal - potonganDiskon;
+# Menghitung total awal dan potongan harga
+total_awal = harga_satuan * jumlah_beli
+potongan_diskon = total_awal * persen_diskon
+total_bayar = total_awal - potongan_diskon
 
-        // Cetak struk belanja
-        System.out.println("======== NOTA BELANJA ========");
-        System.out.println("Barang       : " + namaBarang);
-        System.out.println("Harga Satuan : Rp " + hargaSatuan);
-        System.out.println("Jumlah Beli  : " + jumlahBeli);
-        System.out.println("------------------------------");
-        System.out.println("Total Awal   : Rp " + totalAwal);
-        System.out.println("Diskon (10%) : Rp " + potonganDiskon);
-        System.out.println("------------------------------");
-        System.out.println("Total Bayar  : Rp " + totalBayar);
-        System.out.println("==============================");
-    }
-}
+# Cetak struk belanja
+print("======== NOTA BELANJA ========")
+print(f"Barang       : {nama_barang}")
+print(f"Harga Satuan : Rp {harga_satuan}")
+print(f"Jumlah Beli  : {jumlah_beli}")
+print("------------------------------")
+print(f"Total Awal   : Rp {total_awal}")
+print(f"Diskon (10%) : Rp {potongan_diskon}")
+print("------------------------------")
+print(f"Total Bayar  : Rp {total_bayar}")
+print("==============================")
 
 ```
 
 ---
 
 > **Tips Singkat:**
-> Di Java, kamu harus selalu menentukan **tipe data** variabel sebelum memberi nama (misalnya: `int` untuk angka, `String` untuk teks). Jangan lupa juga bahwa Java itu *case-sensitive*, artinya variabel `Nama` dan `nama` dianggap dua hal yang berbeda.
+> Berbeda dengan Java yang mendeteksi akhir baris menggunakan titik koma (`;`), Python mendeteksi akhir baris secara otomatis lewat **ganti baris baru**. Selain itu, meskipun Python tidak mewajibkan kamu menulis tipe data, Python tetap *case-sensitive* (variabel `Nama` dan `nama` tetap dianggap berbeda).
