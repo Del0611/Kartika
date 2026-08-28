@@ -1,0 +1,512 @@
+import React, { useState, useEffect, useMemo } from 'react';
+import { BookOpen, Gamepad2, Heart, HeartCrack, Trophy, AlertTriangle, ArrowLeft, CheckCircle2, XCircle, User, ChevronRight, BookText } from 'lucide-react';
+
+// --- DATA MATERI ---
+const materials = [
+  {
+    chapter: "BAB 1: PENGENALAN DUNIA KERJA DAN K3 DI BIDANG IT",
+    content: `
+      <h3>1.1 Apa Itu Kecakapan Kerja?</h3>
+      <p>Kecakapan kerja adalah kemampuan yang harus dimiliki seseorang agar bisa bekerja dengan baik, produktif, dan profesional. Terbagi dua:</p>
+      <ul>
+        <li><strong>Hard Skills:</strong> Kemampuan teknis spesifik (Coding, instal jaringan, desain).</li>
+        <li><strong>Soft Skills:</strong> Kemampuan interpersonal (Komunikasi, kerja tim, disiplin).</li>
+      </ul>
+      <p>Pentingnya kecakapan kerja: Dunia kerja kompetitif, kemampuan beradaptasi, kerja tim, dan karir jangka panjang.</p>
+
+      <h3>1.2 Profesi di Bidang IT dan Game Development</h3>
+      <ul>
+        <li><strong>Programmer/Developer:</strong> Membuat aplikasi/software.</li>
+        <li><strong>Network Engineer:</strong> Mengelola jaringan komputer.</li>
+        <li><strong>UI/UX Designer:</strong> Mendesain antarmuka aplikasi.</li>
+        <li><strong>Game Designer:</strong> Merancang konsep, level, mekanik game.</li>
+      </ul>
+
+      <h3>1.3 Keselamatan dan Kesehatan Kerja (K3)</h3>
+      <p>Bertujuan melindungi pekerja dari kecelakaan dan penyakit akibat kerja (Listrik, Ergonomi, Kebakaran, Kesehatan Mental, Debu). Aturan safety: Jangan makan/minum dekat PC, matikan jika selesai, laporkan kerusakan.</p>
+
+      <h3>1.4 Ergonomi di Depan Komputer</h3>
+      <p>Ilmu cara bekerja nyaman & aman. Aturan: Mata sejajar atas monitor, jarak 50-70cm, siku 90 derajat, kaki menapak. <strong>Aturan 20-20-20:</strong> Tiap 20 menit lihat sejauh 20 kaki selama 20 detik.</p>
+
+      <h3>1.5 Budaya Kerja Profesional & 1.6 SOP Dasar</h3>
+      <p>Nilai budaya kerja: Disiplin, Jujur, Tanggung Jawab, Kerja Sama, Inisiatif, Respek. SOP (Standar Operasional Prosedur) adalah langkah baku melakukan pekerjaan (cth: menyalakan komputer sesuai urutan).</p>
+    `
+  },
+  {
+    chapter: "BAB 2: DASAR-DASAR JARINGAN KOMPUTER",
+    content: `
+      <h3>2.1 - 2.3 Konsep Jaringan</h3>
+      <p>Jaringan komputer adalah kumpulan komputer yang saling terhubung untuk berbagi sumber daya. Jenisnya: LAN (Lokal), MAN (Kota), WAN (Antar Negara/Benua), Internet.</p>
+
+      <h3>2.5 Topologi Jaringan</h3>
+      <ul>
+        <li><strong>Bus:</strong> Menggunakan satu kabel utama.</li>
+        <li><strong>Star:</strong> Semua terpusat pada switch/hub.</li>
+        <li><strong>Ring:</strong> Berbentuk cincin.</li>
+        <li><strong>Mesh:</strong> Semua terhubung ke semua.</li>
+      </ul>
+
+      <h3>2.6 - 2.8 Perangkat & Media</h3>
+      <p>Perangkat: Switch, Router, Access Point, Hub. Pengenalan IP Address untuk alamat perangkat. Kabel jaringan: UTP (sering dipakai untuk LAN), STP, Fiber Optic (menggunakan cahaya, super cepat).</p>
+    `
+  },
+  {
+    chapter: "BAB 3: PENGENALAN PEMROGRAMAN TERSTRUKTUR",
+    content: `
+      <h3>3.1 - 3.2 Algoritma & Flowchart</h3>
+      <p>Algoritma adalah langkah-langkah logis menyelesaikan masalah. Bisa ditulis dalam Flowchart (diagram alir) atau Pseudocode (mirip bahasa manusia).</p>
+
+      <h3>3.4 Variabel & Tipe Data</h3>
+      <p>Variabel adalah tempat menyimpan data. Tipe data: Integer (angka bulat), Float (desimal), String (teks), Boolean (True/False).</p>
+
+      <h3>3.6 - 3.7 Percabangan & Perulangan</h3>
+      <ul>
+        <li><strong>Percabangan:</strong> If, If-Else, Switch/Case (Untuk mengambil keputusan).</li>
+        <li><strong>Perulangan:</strong> For, While, Do-While (Untuk mengulang instruksi).</li>
+      </ul>
+
+      <h3>3.8 - 3.9 Array & Fungsi</h3>
+      <p>Array menyimpan banyak data dalam satu variabel. Fungsi/Prosedur memecah program besar menjadi bagian-bagian kecil yang bisa digunakan ulang.</p>
+    `
+  },
+  {
+    chapter: "BAB 4: PENGENALAN PEMROGRAMAN BERORIENTASI OBJEK (OOP)",
+    content: `
+      <h3>4.1 - 4.3 Konsep Dasar OOP</h3>
+      <p>OOP (Object Oriented Programming) memandang segalanya sebagai objek. Berbeda dengan prosedural yang berfokus pada urutan fungsi.</p>
+      <ul>
+        <li><strong>Kelas (Class):</strong> Cetak biru / Blueprint.</li>
+        <li><strong>Objek (Object):</strong> Hasil cetakan dari class.</li>
+      </ul>
+
+      <h3>4.4 - 4.7 Komponen OOP</h3>
+      <ul>
+        <li><strong>Atribut:</strong> Sifat/data yang dimiliki objek.</li>
+        <li><strong>Metode (Method):</strong> Perilaku/fungsi objek.</li>
+        <li><strong>Constructor:</strong> Fungsi yang pertama kali dijalankan saat objek dibuat.</li>
+        <li><strong>Enkapsulasi:</strong> Menyembunyikan data (Public, Private).</li>
+        <li><strong>Pewarisan (Inheritance):</strong> Menurunkan sifat class induk ke class anak.</li>
+      </ul>
+    `
+  },
+  {
+    chapter: "BAB 5: PENGANTAR USER INTERFACE (UI)",
+    content: `
+      <h3>5.1 - 5.3 UI dan Desain</h3>
+      <p>User Interface (UI) adalah tampilan visual dari sebuah aplikasi/web yang menjembatani sistem dengan pengguna. Prinsip UI yang baik adalah mudah dipahami, konsisten, dan menarik.</p>
+      <p>Tools UI yang sering digunakan: Figma (kolaboratif), Canva (mudah dan instan), Adobe XD.</p>
+      
+      <h3>5.5 Analisis Algoritma Sederhana</h3>
+      <p>Algoritma tidak hanya soal bisa jalan, tapi efisiensi dan kemudahan dibaca oleh programmer lain.</p>
+    `
+  }
+];
+
+// --- BANK SOAL (50 SOAL) ---
+const rawQuestionBank = [
+  // KELOMPOK 1: PROFESI IT & KECAKAPAN KERJA (1-10)
+  { q: "Kemampuan teknis spesifik seperti coding, instalasi jaringan, dan desain database disebut...", options: ["Hard Skills", "Soft Skills", "Interpersonal Skills", "Basic Skills"], answer: "Hard Skills" },
+  { q: "Kemampuan berkomunikasi, kerja tim, dan kepemimpinan dalam dunia kerja termasuk dalam...", options: ["Soft Skills", "Hard Skills", "Technical Skills", "Programming Skills"], answer: "Soft Skills" },
+  { q: "Profesi yang bertugas merancang antarmuka (tampilan visual) sebuah aplikasi agar menarik dan mudah digunakan adalah...", options: ["UI/UX Designer", "Database Administrator", "Network Engineer", "System Analyst"], answer: "UI/UX Designer" },
+  { q: "Seseorang yang tugas utamanya merancang, mengelola, dan merawat infrastruktur jaringan komputer disebut...", options: ["Network Engineer", "Web Developer", "QA Tester", "Data Scientist"], answer: "Network Engineer" },
+  { q: "Dalam industri game development, profesi yang bertugas merancang mekanik, aturan bermain, dan tingkat kesulitan game adalah...", options: ["Game Designer", "Game Programmer", "Sound Engineer", "3D Animator"], answer: "Game Designer" },
+  { q: "Profesi IT yang memiliki tugas utama mencari bug atau kesalahan dalam aplikasi sebelum dirilis ke publik adalah...", options: ["QA Tester (Quality Assurance)", "IT Support", "Project Manager", "DevOps Engineer"], answer: "QA Tester (Quality Assurance)" },
+  { q: "Dokumen kumpulan karya atau proyek IT yang pernah kita buat untuk ditunjukkan kepada perusahaan saat melamar kerja disebut...", options: ["Portofolio", "Curriculum Vitae (CV)", "Sertifikat", "Ijazah"], answer: "Portofolio" },
+  { q: "Mengumpulkan data dan menganalisis kebutuhan sistem dari klien sebelum program dibuat adalah tugas utama dari...", options: ["System Analyst", "Programmer", "UI Designer", "IT Support"], answer: "System Analyst" },
+  { q: "Kemampuan beradaptasi dan belajar hal baru sangat diwajibkan bagi pekerja IT karena...", options: ["Teknologi IT berkembang sangat cepat", "Perusahaan IT sering memecat karyawan", "Gaji IT sangat besar", "Agar bisa bekerja dari rumah"], answer: "Teknologi IT berkembang sangat cepat" },
+  { q: "Seseorang yang bertugas menulis logika permainan menggunakan bahasa pemrograman seperti C# atau C++ disebut...", options: ["Game Programmer", "Game Artist", "Game Producer", "Level Designer"], answer: "Game Programmer" },
+
+  // KELOMPOK 2: K3 & K3LH DI BIDANG IT (11-20)
+  { q: "Apa kepanjangan dari K3LH?", options: ["Kesehatan, Keselamatan Kerja, dan Lingkungan Hidup", "Keamanan, Ketertiban, Keindahan, dan Lingkungan Hidup", "Kesehatan, Kesejahteraan Kerja, dan Lingkungan Hidup", "Keselamatan, Kesehatan Kerja, dan Lingkungan Harian"], answer: "Kesehatan, Keselamatan Kerja, dan Lingkungan Hidup" },
+  { q: "Tujuan utama penerapan K3 di lab komputer adalah...", options: ["Mencegah kecelakaan kerja dan penyakit akibat kerja", "Mengurangi biaya listrik perusahaan", "Membuat karyawan bekerja lebih lama", "Meningkatkan kecepatan internet"], answer: "Mencegah kecelakaan kerja dan penyakit akibat kerja" },
+  { q: "Tindakan pertama yang paling tepat jika Anda melihat kabel komputer terkelupas di area kerja adalah...", options: ["Melaporkan kepada teknisi atau atasan", "Menyentuhnya untuk memastikan ada listrik", "Menyiramnya dengan air", "Membiarkannya saja karena bukan tugas Anda"], answer: "Melaporkan kepada teknisi atau atasan" },
+  { q: "Mengapa dilarang keras membawa makanan dan minuman cair ke meja kerja komputer?", options: ["Mencegah tumpahan yang menyebabkan korsleting listrik", "Agar keyboard tidak lengket", "Agar tidak digigit semut", "Karena mengganggu konsentrasi teman"], answer: "Mencegah tumpahan yang menyebabkan korsleting listrik" },
+  { q: "Bahaya utama dari menumpuk banyak steker (colokan) pada satu stop kontak (T) adalah...", options: ["Kelebihan beban arus yang bisa memicu kebakaran", "Komputer menjadi lebih lambat", "Koneksi internet menjadi tidak stabil", "Boros tagihan listrik"], answer: "Kelebihan beban arus yang bisa memicu kebakaran" },
+  { q: "Debu yang dibiarkan menumpuk tebal di dalam casing CPU dapat mengakibatkan...", options: ["Suhu komponen menjadi terlalu panas (Overheat)", "Data di dalam hardisk hilang", "Layar monitor berkedip", "Kecepatan ngetik keyboard menurun"], answer: "Suhu komponen menjadi terlalu panas (Overheat)" },
+  { q: "Fungsi dari pemasangan kabel Grounding pada instalasi listrik lab komputer adalah...", options: ["Membuang arus listrik liar (bocor) ke bumi agar tidak menyengat manusia", "Menambah daya listrik agar komputer menyala lebih terang", "Mempercepat transfer data antar komputer", "Menghemat penggunaan listrik harian"], answer: "Membuang arus listrik liar (bocor) ke bumi agar tidak menyengat manusia" },
+  { q: "Alat yang wajib terpasang di ruangan server/lab untuk penanganan darurat awal jika terjadi percikan api adalah...", options: ["APAR (Alat Pemadam Api Ringan)", "Kotak P3K", "Helm Proyek", "Pendeteksi Asap Tembakau"], answer: "APAR (Alat Pemadam Api Ringan)" },
+  { q: "Limbah elektronik (e-waste) seperti motherboard bekas dan baterai tidak boleh dibuang di tempat sampah biasa karena...", options: ["Mengandung logam berat beracun yang merusak lingkungan", "Bisa didaur ulang menjadi makanan", "Harga jualnya sangat mahal", "Akan meledak jika terkena air hujan"], answer: "Mengandung logam berat beracun yang merusak lingkungan" },
+  { q: "Sirkulasi udara (AC/Exhaust fan) di ruang lab komputer sangat penting dipelihara untuk...", options: ["Menjaga suhu perangkat keras agar tidak overheat", "Agar siswa/karyawan tidak berkeringat", "Mencegah suara bising dari luar", "Menambah estetika ruangan"], answer: "Menjaga suhu perangkat keras agar tidak overheat" },
+
+  // KELOMPOK 3: ERGONOMI (21-30)
+  { q: "Ilmu yang mempelajari rancangan alat dan sikap tubuh saat bekerja agar nyaman dan tidak menimbulkan cedera disebut...", options: ["Ergonomi", "Anatomi", "Psikologi", "Topologi"], answer: "Ergonomi" },
+  { q: "Jarak pandang ideal yang disarankan antara mata dan layar monitor komputer adalah...", options: ["50 - 70 cm", "10 - 20 cm", "1 - 2 meter", "30 - 40 cm"], answer: "50 - 70 cm" },
+  { q: "Posisi duduk yang paling tepat dan sehat saat mengetik di depan komputer adalah...", options: ["Punggung tegak bersandar penuh pada kursi", "Membungkuk agar wajah lebih dekat ke layar", "Duduk bersila di atas kursi", "Duduk di ujung kursi agar lebih waspada"], answer: "Punggung tegak bersandar penuh pada kursi" },
+  { q: "Sudut yang disarankan untuk lekukan siku tangan saat mengetik santai di keyboard adalah sekitar...", options: ["90 derajat", "30 derajat", "180 derajat (lurus)", "45 derajat"], answer: "90 derajat" },
+  { q: "Posisi kaki yang benar saat duduk dalam waktu lama di depan komputer adalah...", options: ["Menapak rata di lantai atau menggunakan pijakan (footrest)", "Ditekuk ke belakang kursi", "Disilangkan satu sama lain", "Menggantung di udara"], answer: "Menapak rata di lantai atau menggunakan pijakan (footrest)" },
+  { q: "Sindrom nyeri, kesemutan, atau mati rasa pada pergelangan tangan akibat terlalu sering dan lama menggunakan mouse/keyboard disebut...", options: ["Carpal Tunnel Syndrome (CTS)", "Computer Vision Syndrome (CVS)", "Tendinitis", "Scoliosis"], answer: "Carpal Tunnel Syndrome (CTS)" },
+  { q: "Aturan '20-20-20' untuk kesehatan mata bagi pengguna komputer berarti...", options: ["Tiap 20 menit, lihat objek sejauh 20 kaki, selama 20 detik", "Bekerja 20 jam, istirahat 20 menit, tidur 20 jam", "Kecerahan monitor 20%, jarak 20 cm, kemiringan 20 derajat", "Mengerjakan 20 baris kode dalam 20 menit, diulang 20 kali"], answer: "Tiap 20 menit, lihat objek sejauh 20 kaki, selama 20 detik" },
+  { q: "Gangguan berupa mata lelah, kering, merah, dan pandangan kabur akibat menatap layar gadget terlalu lama dikenal dengan istilah...", options: ["Computer Vision Syndrome (CVS)", "Carpal Tunnel Syndrome (CTS)", "Miopia", "Katarak"], answer: "Computer Vision Syndrome (CVS)" },
+  { q: "Posisi penempatan tinggi monitor yang paling ergonomis adalah...", options: ["Ujung atas layar sejajar dengan garis pandang horizontal mata", "Berada jauh di bawah dagu", "Lebih tinggi dari kepala agar mendongak", "Diletakkan di sebelah kiri tubuh"], answer: "Ujung atas layar sejajar dengan garis pandang horizontal mata" },
+  { q: "Untuk menghindari ketegangan otot leher dan punggung saat ngoding atau desain seharian, hal yang paling wajib dianjurkan adalah...", options: ["Melakukan peregangan (stretching) ringan setiap 1-2 jam", "Minum kopi sebanyak-banyaknya", "Menggunakan kacamata hitam di dalam ruangan", "Mendengarkan musik dengan volume maksimal"], answer: "Melakukan peregangan (stretching) ringan setiap 1-2 jam" },
+
+  // KELOMPOK 4: BUDAYA KERJA & PROFESIONALISME (31-40)
+  { q: "Kebiasaan, sikap, nilai-nilai, dan perilaku yang dijunjung tinggi dan dipraktikkan oleh karyawan di suatu perusahaan disebut...", options: ["Budaya Kerja", "Aturan Pemerintah", "Kode Etik", "Visi Misi"], answer: "Budaya Kerja" },
+  { q: "Datang ke kantor atau mengumpulkan tugas proyek tepat pada waktunya adalah perwujudan dari nilai...", options: ["Disiplin", "Kreativitas", "Inisiatif", "Kejujuran"], answer: "Disiplin" },
+  { q: "Sikap proaktif, tidak menunggu diperintah untuk melakukan hal yang benar dan mandiri mencari solusi saat ada error disebut...", options: ["Inisiatif", "Egoisme", "Individualisme", "Konvensional"], answer: "Inisiatif" },
+  { q: "Menyelesaikan tugas sesuai porsi, tidak melempar kesalahan kepada orang lain, serta siap menanggung risiko adalah ciri sikap...", options: ["Tanggung Jawab", "Pemalu", "Sombong", "Perfeksionis"], answer: "Tanggung Jawab" },
+  { q: "Di dunia industri IT/Startup, banyak perusahaan menerapkan budaya kerja 'Agile'. Ciri utama budaya kerja Agile adalah...", options: ["Bekerja cepat, kolaboratif, dan sangat adaptif terhadap perubahan", "Bekerja sangat lambat agar hasilnya sempurna", "Semua keputusan hanya diambil oleh bos tanpa diskusi", "Karyawan bekerja sendiri-sendiri tanpa komunikasi"], answer: "Bekerja cepat, kolaboratif, dan sangat adaptif terhadap perubahan" },
+  { q: "Jika rekan satu tim/kelompok Anda mengalami kesulitan dalam menulis kode program, sikap profesional yang harus ditunjukkan adalah...", options: ["Membantunya mencari solusi dan memecahkan masalah bersama", "Menertawakannya karena kemampuannya kurang", "Membiarkannya agar ia belajar sendiri", "Meminta atasan untuk memecatnya"], answer: "Membantunya mencari solusi dan memecahkan masalah bersama" },
+  { q: "Tidak menyebarkan data pribadi milik klien perusahaan kepada pihak luar merupakan bentuk penerapan nilai...", options: ["Integritas dan Kepercayaan", "Kesopanan", "Keramahan", "Keberanian"], answer: "Integritas dan Kepercayaan" },
+  { q: "Cara terbaik dan paling profesional menerima kritikan (feedback) dari atasan mengenai desain aplikasi yang kita buat adalah...", options: ["Menerimanya dengan pikiran terbuka untuk perbaikan", "Langsung membantah dan marah-marah", "Diam saja namun menyimpan dendam", "Langsung mengajukan surat pengunduran diri"], answer: "Menerimanya dengan pikiran terbuka untuk perbaikan" },
+  { q: "Salah satu cara sederhana menunjukkan sikap 'Respek' (Menghargai) di tempat kerja atau lab adalah...", options: ["Mendengarkan dengan baik saat rekan lain sedang berbicara", "Memotong pembicaraan orang yang lebih junior", "Memutar musik keras-keras saat teman sedang fokus", "Mengejek hasil karya orang lain"], answer: "Mendengarkan dengan baik saat rekan lain sedang berbicara" },
+  { q: "Budaya 'Lifelong Learning' (Belajar Sepanjang Hayat) wajib dimiliki oleh pekerja di bidang IT karena...", options: ["Bahasa pemrograman dan tools selalu diperbarui setiap saat", "Perusahaan tidak mau mengadakan pelatihan", "Sekolah tidak mengajarkan apapun", "Agar terlihat pintar di depan bos"], answer: "Bahasa pemrograman dan tools selalu diperbarui setiap saat" },
+
+  // KELOMPOK 5: SOP (STANDAR OPERASIONAL PROSEDUR) (41-50)
+  { q: "Apa kepanjangan dari singkatan SOP di dunia kerja?", options: ["Standar Operasional Prosedur", "Sistem Organisasi Perusahaan", "Standar Output Pemrograman", "Sistem Operasi Pusat"], answer: "Standar Operasional Prosedur" },
+  { q: "Tujuan utama dibuatnya SOP (Standar Operasional Prosedur) di tempat kerja adalah untuk...", options: ["Memastikan suatu pekerjaan dilakukan secara seragam, aman, dan efisien", "Mempersulit pekerjaan karyawan agar disiplin", "Menghabiskan kertas untuk dokumentasi", "Syarat formalitas dari pemerintah saja"], answer: "Memastikan suatu pekerjaan dilakukan secara seragam, aman, dan efisien" },
+  { q: "Berdasarkan SOP, cara mematikan komputer harus melalui menu 'Shut down' pada OS. Akibat jika sering mematikan paksa (cabut kabel listrik) adalah...", options: ["Kerusakan fatal pada Harddisk dan sistem operasi (corrupt)", "Komputer akan menyala lebih cepat keesokan harinya", "Virus di dalam komputer akan mati seketika", "Menghemat tagihan listrik lebih banyak"], answer: "Kerusakan fatal pada Harddisk dan sistem operasi (corrupt)" },
+  { q: "Menurut SOP dasar di laboratorium komputer, langkah pertama yang dicek sebelum menyalakan CPU adalah...", options: ["Memastikan kabel power sudah terhubung ke stop kontak dengan benar", "Langsung menekan tombol reset berulang kali", "Mengetik password sembarangan di keyboard", "Membuka casing komputer untuk melihat kipas"], answer: "Memastikan kabel power sudah terhubung ke stop kontak dengan benar" },
+  { q: "Jika pada saat praktik komputer tiba-tiba alat mengeluarkan bau hangus/asap, tindakan darurat sesuai SOP yang tepat adalah...", options: ["Segera mematikan sumber listrik/mencabut kabel power dan melapor", "Menyiram casing komputer dengan air botol", "Meniup asapnya agar hilang", "Merekam dengan HP untuk dibuat story"], answer: "Segera mematikan sumber listrik/mencabut kabel power dan melapor" },
+  { q: "Siapakah pihak yang wajib mematuhi SOP Keselamatan di laboratorium sekolah atau kantor perusahaan?", options: ["Semua yang ada di ruangan (siswa, guru, karyawan, teknisi)", "Hanya teknisi IT saja", "Hanya siswa kelas 10 saja", "Hanya kepala sekolah/direktur utama"], answer: "Semua yang ada di ruangan (siswa, guru, karyawan, teknisi)" },
+  { q: "Salah satu contoh pelaksanaan SOP untuk perawatan (maintenance) perangkat lunak secara rutin adalah...", options: ["Melakukan update antivirus dan membersihkan file sampah (cache)", "Mencuci motherboard dengan sabun", "Mengecat casing CPU sebulan sekali", "Mengganti monitor setiap minggu"], answer: "Melakukan update antivirus dan membersihkan file sampah (cache)" },
+  { q: "Saat Anda akan meninggalkan meja kerja IT (misal saat istirahat siang), kebiasaan baik sesuai SOP Keamanan Data adalah...", options: ["Mengunci (Lock Screen) layar komputer", "Meninggalkan komputer dalam keadaan terbuka lebar", "Membiarkan teman lain menggunakan komputer kita", "Mencabut harddisk dari komputer"], answer: "Mengunci (Lock Screen) layar komputer" },
+  { q: "Banyak perusahaan IT melarang penggunaan Flashdisk pribadi dari luar tanpa di-scan terlebih dahulu karena...", options: ["Mencegah penyebaran virus, malware, atau ransomware ke jaringan internal", "Perusahaan ingin menjual flashdisk miliknya sendiri", "Flashdisk pribadi memperlambat internet", "Kapasitas flashdisk pribadi biasanya kecil"], answer: "Mencegah penyebaran virus, malware, atau ransomware ke jaringan internal" },
+  { q: "Manfaat utama bagi siswa/karyawan yang selalu disiplin mengikuti SOP adalah...", options: ["Terhindar dari kecelakaan kerja dan terbiasa bekerja secara profesional", "Selalu dimarahi oleh atasan", "Pekerjaan menjadi dua kali lebih lambat", "Mudah merasa bosan di tempat kerja"], answer: "Terhindar dari kecelakaan kerja dan terbiasa bekerja secara profesional" }
+];
+
+// Helper: Shuffle Array
+const shuffleArray = (array) => {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+};
+
+export default function App() {
+  const [screen, setScreen] = useState('home'); // home, material, quiz, gameover, result
+  const [playerName, setPlayerName] = useState('');
+  const [activeTab, setActiveTab] = useState(0); // for material tabs
+  
+  // Quiz states
+  const [questions, setQuestions] = useState([]);
+  const [currentQIndex, setCurrentQIndex] = useState(0);
+  const [wrongCount, setWrongCount] = useState(0);
+  const [score, setScore] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(null);
+  const [shuffledOptions, setShuffledOptions] = useState([]);
+
+  const MAX_WRONG = 10;
+  const TOTAL_QUESTIONS = 50;
+
+  // Initialize Quiz
+  const startQuiz = () => {
+    if (!playerName.trim()) {
+      alert("Masukkan namamu dulu ya!");
+      return;
+    }
+    const shuffledQuestions = shuffleArray(rawQuestionBank);
+    setQuestions(shuffledQuestions);
+    setCurrentQIndex(0);
+    setWrongCount(0);
+    setScore(0);
+    setSelectedAnswer(null);
+    setupOptions(shuffledQuestions[0]);
+    setScreen('quiz');
+  };
+
+  const setupOptions = (question) => {
+    if (question) {
+      setShuffledOptions(shuffleArray(question.options));
+    }
+  };
+
+  const handleAnswer = (option) => {
+    if (selectedAnswer) return; // Prevent double clicking
+
+    setSelectedAnswer(option);
+    const correct = option === questions[currentQIndex].answer;
+    setIsAnswerCorrect(correct);
+
+    if (correct) {
+      setScore(prev => prev + 1);
+    } else {
+      setWrongCount(prev => prev + 1);
+    }
+
+    setTimeout(() => {
+      // Check Game Over
+      if (!correct && wrongCount + 1 >= MAX_WRONG) {
+        setScreen('gameover');
+      } 
+      // Check Win
+      else if (currentQIndex + 1 >= TOTAL_QUESTIONS) {
+        setScreen('result');
+      } 
+      // Next Question
+      else {
+        const nextIndex = currentQIndex + 1;
+        setCurrentQIndex(nextIndex);
+        setSelectedAnswer(null);
+        setIsAnswerCorrect(null);
+        setupOptions(questions[nextIndex]);
+      }
+    }, 1500); // 1.5s delay to show correct/wrong feedback
+  };
+
+  const resetGame = () => {
+    setScreen('home');
+    setPlayerName('');
+  };
+
+  // --- RENDERERS ---
+
+  const renderHome = () => (
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 text-center animate-fade-in">
+      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border-t-8 border-indigo-600">
+        <h1 className="text-3xl font-extrabold text-gray-800 mb-2">Kuis Interaktif IT</h1>
+        <p className="text-gray-500 mb-8">Uji Kecakapan Kerja & Dasar IT Kamu!</p>
+        
+        <div className="relative mb-6">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <User className="h-5 w-5 text-gray-400" />
+          </div>
+          <input
+            type="text"
+            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+            placeholder="Masukkan Namamu..."
+            value={playerName}
+            onChange={(e) => setPlayerName(e.target.value)}
+          />
+        </div>
+
+        <div className="space-y-4">
+          <button 
+            onClick={() => setScreen('material')}
+            className="w-full flex items-center justify-center gap-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-bold py-3 px-4 rounded-xl transition-all shadow-sm"
+          >
+            <BookOpen size={20} />
+            Mode Materi
+          </button>
+          
+          <button 
+            onClick={startQuiz}
+            className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-md transform hover:scale-105"
+          >
+            <Gamepad2 size={20} />
+            Mulai Kuis!
+          </button>
+        </div>
+      </div>
+      <p className="mt-8 text-sm text-gray-500 max-w-sm">
+        Selesaikan 50 soal secara acak. Hati-hati, jika kamu salah 10 kali, permainan akan berakhir!
+      </p>
+    </div>
+  );
+
+  const renderMaterial = () => (
+    <div className="flex flex-col min-h-screen bg-gray-50 p-4 md:p-8 animate-fade-in">
+      <div className="max-w-4xl mx-auto w-full bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row min-h-[80vh]">
+        
+        {/* Sidebar Tabs */}
+        <div className="w-full md:w-1/3 bg-slate-800 text-white p-6 flex flex-col">
+          <button 
+            onClick={() => setScreen('home')}
+            className="flex items-center gap-2 text-slate-300 hover:text-white mb-8 transition-colors w-fit"
+          >
+            <ArrowLeft size={20} /> Kembali ke Home
+          </button>
+          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+            <BookText className="text-indigo-400"/> Daftar Materi
+          </h2>
+          <div className="flex-1 overflow-y-auto space-y-2 pr-2">
+            {materials.map((mat, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveTab(idx)}
+                className={`w-full text-left p-3 rounded-lg transition-all text-sm font-medium ${
+                  activeTab === idx 
+                    ? 'bg-indigo-600 text-white shadow-md' 
+                    : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                }`}
+              >
+                {mat.chapter}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Content Area */}
+        <div className="w-full md:w-2/3 p-6 md:p-10 overflow-y-auto max-h-[80vh] prose prose-indigo">
+          <h2 className="text-2xl font-extrabold text-gray-800 mb-6 border-b pb-4">
+            {materials[activeTab].chapter}
+          </h2>
+          <div 
+            className="text-gray-700 leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: materials[activeTab].content }} 
+          />
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderQuiz = () => {
+    const question = questions[currentQIndex];
+    const progress = ((currentQIndex) / TOTAL_QUESTIONS) * 100;
+
+    return (
+      <div className="flex flex-col min-h-screen bg-slate-100 p-4 md:p-8 items-center justify-center animate-fade-in">
+        <div className="w-full max-w-2xl bg-white rounded-3xl shadow-xl overflow-hidden">
+          
+          {/* Header */}
+          <div className="bg-indigo-600 p-6 text-white flex justify-between items-center">
+            <div>
+              <p className="text-indigo-200 text-sm font-medium uppercase tracking-wider">Pemain</p>
+              <p className="font-bold text-lg flex items-center gap-2">
+                <User size={18} /> {playerName}
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-indigo-200 text-sm font-medium uppercase tracking-wider">Kesalahan</p>
+              <div className="flex items-center gap-1 text-rose-300 font-bold text-lg justify-end">
+                {wrongCount} / {MAX_WRONG} <HeartCrack size={18} className={wrongCount > 7 ? 'animate-pulse text-rose-500' : ''} />
+              </div>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="w-full bg-indigo-100 h-2">
+            <div 
+              className="bg-emerald-500 h-2 transition-all duration-500"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+
+          {/* Question Section */}
+          <div className="p-6 md:p-10">
+            <div className="flex justify-between text-sm font-bold text-gray-400 mb-4">
+              <span>Pertanyaan {currentQIndex + 1} dari {TOTAL_QUESTIONS}</span>
+              <span>Skor: {score}</span>
+            </div>
+            
+            <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-8 min-h-[80px]">
+              {question?.q}
+            </h3>
+
+            <div className="space-y-3">
+              {shuffledOptions.map((opt, idx) => {
+                let btnStyle = "bg-gray-50 border-gray-200 text-gray-700 hover:bg-indigo-50 hover:border-indigo-300";
+                let Icon = null;
+
+                if (selectedAnswer) {
+                  if (opt === question.answer) {
+                    btnStyle = "bg-emerald-100 border-emerald-500 text-emerald-800";
+                    Icon = <CheckCircle2 className="text-emerald-600" size={20} />;
+                  } else if (opt === selectedAnswer) {
+                    btnStyle = "bg-rose-100 border-rose-500 text-rose-800";
+                    Icon = <XCircle className="text-rose-600" size={20} />;
+                  } else {
+                    btnStyle = "bg-gray-50 border-gray-100 text-gray-400 opacity-50";
+                  }
+                }
+
+                return (
+                  <button
+                    key={idx}
+                    disabled={!!selectedAnswer}
+                    onClick={() => handleAnswer(opt)}
+                    className={`w-full text-left p-4 rounded-xl border-2 font-medium transition-all flex justify-between items-center ${btnStyle}`}
+                  >
+                    <span>{opt}</span>
+                    {Icon && <span>{Icon}</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderGameOver = () => (
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 text-center bg-rose-50 animate-fade-in">
+      <div className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md border-t-8 border-rose-500">
+        <div className="w-20 h-20 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <HeartCrack className="text-rose-500 w-10 h-10" />
+        </div>
+        <h1 className="text-4xl font-extrabold text-gray-800 mb-2">Game Over!</h1>
+        <p className="text-gray-600 mb-6 text-lg">Yah, {playerName}... Kamu telah mencapai batas maksimal 10 kesalahan.</p>
+        
+        <div className="bg-gray-50 rounded-xl p-4 mb-8">
+          <p className="text-sm text-gray-500 font-medium">Soal Terjawab Benar</p>
+          <p className="text-3xl font-bold text-indigo-600">{score}</p>
+        </div>
+
+        <button 
+          onClick={() => setScreen('home')}
+          className="w-full flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg transform hover:-translate-y-1"
+        >
+          Coba Lagi
+        </button>
+      </div>
+    </div>
+  );
+
+  const renderResult = () => {
+    // Determine grading
+    const percentage = (score / TOTAL_QUESTIONS) * 100;
+    let grade = "";
+    let color = "";
+    
+    if (percentage >= 90) { grade = "Luar Biasa!"; color = "text-emerald-600"; }
+    else if (percentage >= 70) { grade = "Bagus Sekali!"; color = "text-blue-600"; }
+    else if (percentage >= 50) { grade = "Cukup Baik."; color = "text-yellow-600"; }
+    else { grade = "Perlu Banyak Belajar!"; color = "text-rose-600"; }
+
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen p-6 text-center bg-indigo-50 animate-fade-in">
+        <div className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md border-t-8 border-emerald-500 relative overflow-hidden">
+          
+          <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-emerald-100 to-transparent pointer-events-none"></div>
+
+          <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10 shadow-inner">
+            <Trophy className="text-emerald-500 w-10 h-10" />
+          </div>
+          <h1 className="text-3xl font-extrabold text-gray-800 mb-2 relative z-10">Selamat, {playerName}!</h1>
+          <p className="text-gray-600 mb-6 font-medium relative z-10">Kamu berhasil menyelesaikan kuis.</p>
+          
+          <div className="bg-slate-50 rounded-2xl p-6 mb-8 border border-slate-100 relative z-10 shadow-sm">
+            <p className="text-sm text-gray-500 font-bold uppercase tracking-widest mb-1">Skor Akhir</p>
+            <p className="text-5xl font-black text-slate-800 mb-2">{score} <span className="text-2xl text-slate-400">/ {TOTAL_QUESTIONS}</span></p>
+            <p className={`font-bold text-lg ${color}`}>{grade}</p>
+          </div>
+
+          <button 
+            onClick={() => setScreen('home')}
+            className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg transform hover:-translate-y-1 relative z-10"
+          >
+            Main Lagi
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  // --- MAIN RENDER ---
+  return (
+    <div className="min-h-screen font-sans bg-gray-100 text-gray-800">
+      {screen === 'home' && renderHome()}
+      {screen === 'material' && renderMaterial()}
+      {screen === 'quiz' && renderQuiz()}
+      {screen === 'gameover' && renderGameOver()}
+      {screen === 'result' && renderResult()}
+      
+      {/* Basic styles for HTML generated from text */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .prose h3 { font-size: 1.25rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #1e293b; }
+        .prose p { margin-bottom: 1rem; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+        .prose li { margin-bottom: 0.5rem; }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}} />
+    </div>
+  );
+}
