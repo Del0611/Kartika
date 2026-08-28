@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -467,7 +466,12 @@
         // ------------------------------------------------------------
         // MAIN RENDER
         // ------------------------------------------------------------
+        let isRendering = false;
+
         function renderApp() {
+            if (isRendering) return;
+            isRendering = true;
+            
             let html = '';
             switch (state.screen) {
                 case 'home': html = renderHome(); break;
@@ -478,6 +482,22 @@
                 default: html = '<div>Halaman tidak ditemukan</div>';
             }
             root.innerHTML = html;
+            
+            // Re-attach event listener untuk input jika di home
+            if (state.screen === 'home') {
+                const input = document.getElementById('playerNameInput');
+                if (input) {
+                    // Hapus event listener lama dengan clone
+                    const newInput = input.cloneNode(true);
+                    input.parentNode.replaceChild(newInput, input);
+                    newInput.addEventListener('input', function(e) {
+                        state.playerName = e.target.value;
+                        // Tidak perlu re-render, hanya update state
+                    });
+                }
+            }
+            
+            isRendering = false;
         }
 
         // ------------------------------------------------------------
@@ -491,8 +511,7 @@
         // Global functions untuk onclick
         window.updatePlayerName = function(val) {
             state.playerName = val;
-            // re-render home saja
-            if (state.screen === 'home') renderApp();
+            // Tidak perlu re-render, hanya update state
         };
 
         window.setScreen = function(screen) {
@@ -582,4 +601,3 @@
     </script>
 </body>
 </html>
-```
