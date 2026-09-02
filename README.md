@@ -3,6 +3,9 @@
 Download File Github
 https://downgit.evecalm.com/#/home
 
+k3lh
+
+https://del0611.github.io/Kartika/Kuis/01.%20K3LH.html
 
 Kode Google Drive Kelas 10 RPL
 
