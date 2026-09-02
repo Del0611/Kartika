@@ -197,39 +197,68 @@
         ];
 
         // ------------------------------------------------------------
-        // BANK SOAL (STRICTLY FROM TEXT)
+        // BANK SOAL (50 SOAL STRICTLY FROM TEXT BAB 1)
         // ------------------------------------------------------------
         const rawQuestionBank = [
-          { q: "Kemampuan yang harus dimiliki seseorang agar bisa bekerja dengan baik, produktif, dan profesional disebut...", options: ["Kecakapan kerja", "Pengalaman magang", "Budaya kerja", "SOP"], answer: "Kecakapan kerja" },
-          { q: "Coding, menginstal jaringan, dan desain grafis merupakan contoh dari...", options: ["Hard Skills", "Soft Skills", "Kecerdasan emosional", "Budaya perusahaan"], answer: "Hard Skills" },
-          { q: "Kemampuan interpersonal dan karakter seperti komunikasi, kerja tim, dan disiplin disebut...", options: ["Soft Skills", "Hard Skills", "Agile", "Etos kerja"], answer: "Soft Skills" },
-          { q: "Salah satu contoh penerapan kecakapan 'Disiplin' bagi siswa SMK di sekolah adalah...", options: ["Datang ke sekolah tepat waktu", "Membuat karya orisinal", "Bekerja sama di lab", "Presentasi di depan kelas"], answer: "Datang ke sekolah tepat waktu" },
-          { q: "Profesi di bidang IT yang memiliki tugas utama merancang konsep, level, dan mekanik sebuah permainan adalah...", options: ["Game Designer", "Game Programmer", "UI/UX Designer", "Artist/Animator"], answer: "Game Designer" },
-          { q: "Profesi yang tugasnya mengelola database dan membutuhkan kemampuan SQL disebut...", options: ["Database Administrator", "System Analyst", "Network Engineer", "QA Tester"], answer: "Database Administrator" },
-          { q: "Seseorang yang bertugas mendesain antarmuka aplikasi dan memperhatikan psikologi pengguna dikenal dengan nama profesi...", options: ["UI/UX Designer", "Programmer/Developer", "Sound Designer", "Producer"], answer: "UI/UX Designer" },
-          { q: "Dalam bidang Game Development, tugas menguji game untuk mencari bug dilakukan oleh...", options: ["QA Tester", "Producer", "Game Programmer", "IT Support"], answer: "QA Tester" },
-          { q: "Kumpulan karya (seperti aplikasi, game, website) yang bisa ditunjukkan sebagai kualifikasi bekerja disebut...", options: ["Portofolio", "Sertifikasi", "SOP", "CV (Curriculum Vitae)"], answer: "Portofolio" },
-          { q: "Apa kepanjangan dari K3?", options: ["Keselamatan dan Kesehatan Kerja", "Keamanan dan Kebersihan Komputer", "Kenyamanan dan Kesehatan Kerja", "Keterampilan dan Kecakapan Kerja"], answer: "Keselamatan dan Kesehatan Kerja" },
-          { q: "Berdasarkan materi, kabel terbuka dan stop kontak overload adalah contoh bahaya...", options: ["Listrik", "Ergonomi", "Kebakaran", "Kesehatan Mental"], answer: "Listrik" },
-          { q: "Dampak dari bahaya kesehatan mental di lingkungan IT seperti stres dan burnout adalah...", options: ["Depresi dan produktivitas turun", "Tersengat listrik", "Nyeri punggung dan mata lelah", "Kerusakan perangkat dan alergi"], answer: "Depresi dan produktivitas turun" },
-          { q: "Untuk mencegah kecelakaan listrik di lab komputer, salah satu caranya adalah dengan memastikan stop kontak memiliki...", options: ["Grounding", "Cable ties", "Kursi ergonomis", "Exhaust fan"], answer: "Grounding" },
-          { q: "Menurut aturan safety di lab komputer, apa yang harus dilakukan jika ada kerusakan alat?", options: ["Melaporkan kerusakan ke guru/teknisi", "Memperbaiki sendiri", "Dibiarkan saja", "Mematikan listrik lab"], answer: "Melaporkan kerusakan ke guru/teknisi" },
-          { q: "Ilmu yang mempelajari cara bekerja yang nyaman dan aman agar tubuh tidak sakit disebut...", options: ["Ergonomi", "K3", "SOP", "Psikologi pengguna"], answer: "Ergonomi" },
-          { q: "Menurut ergonomi, berapakah jarak yang benar antara mata ke monitor komputer?", options: ["50-70 cm", "10-20 cm", "1-2 meter", "90 cm"], answer: "50-70 cm" },
-          { q: "Bagaimana posisi yang benar untuk siku tangan saat menggunakan komputer?", options: ["Membentuk sudut 90°", "Lurus ke depan", "Menempel pada dada", "Ditekuk tajam"], answer: "Membentuk sudut 90°" },
-          { q: "Aturan 20-20-20 menyarankan kita untuk beristirahat dan melihat sejauh 20 kaki selama...", options: ["20 detik", "20 menit", "20 milidetik", "20 jam"], answer: "20 detik" },
-          { q: "Mata lelah, kabur, dan sakit kepala akibat ergonomi yang buruk adalah gejala dari...", options: ["Computer Vision Syndrome", "Carpal Tunnel Syndrome", "Text Neck", "Burnout"], answer: "Computer Vision Syndrome" },
-          { q: "Nyeri pada pergelangan tangan akibat posisi kerja yang buruk disebut...", options: ["Carpal Tunnel Syndrome", "Text Neck", "Computer Vision Syndrome", "Skoliosis"], answer: "Carpal Tunnel Syndrome" },
-          { q: "Kebiasaan dan perilaku yang dilakukan di tempat kerja disebut sebagai...", options: ["Budaya Kerja", "SOP", "Ergonomi", "Soft Skills"], answer: "Budaya Kerja" },
-          { q: "Sikap tidak menunggu perintah dan proaktif dalam mencari solusi merupakan contoh nilai budaya kerja...", options: ["Inisiatif", "Respek", "Jujur", "Tanggung Jawab"], answer: "Inisiatif" },
-          { q: "Budaya bekerja dalam sprint selama 2-4 minggu dan cepat beradaptasi dengan perubahan disebut...", options: ["Agile", "Kolaborasi", "Feedback", "SOP"], answer: "Agile" },
-          { q: "Nilai budaya kerja berupa 'menghargai pendapat orang lain' masuk dalam kategori sikap...", options: ["Respek", "Kerja Sama", "Jujur", "Disiplin"], answer: "Respek" },
-          { q: "Apa kepanjangan dari SOP?", options: ["Standar Operasional Prosedur", "Sistem Operasional Pusat", "Standar Output Perusahaan", "Sistem Organisasi Pekerjaan"], answer: "Standar Operasional Prosedur" },
-          { q: "Langkah pertama dalam contoh SOP menyalakan komputer lab adalah...", options: ["Pastikan kabel listrik terhubung", "Tekan tombol power pada CPU", "Tunggu hingga desktop muncul", "Masukkan username dan password"], answer: "Pastikan kabel listrik terhubung" },
-          { q: "Menurut SOP mematikan komputer dengan benar, apa yang dilakukan sebelum mengklik Start -> Shutdown?", options: ["Tutup semua aplikasi yang terbuka", "Matikan monitor dan stabilizer", "Tunggu komputer benar-benar mati", "Cabut kabel listrik"], answer: "Tutup semua aplikasi yang terbuka" },
-          { q: "Menurut contoh SOP lab komputer, berapa menit siswa harus datang sebelum jam pelajaran dimulai?", options: ["5 menit sebelum jam pelajaran", "Tepat saat bel berbunyi", "15 menit sebelum guru datang", "Kapan saja asalkan sebelum selesai"], answer: "5 menit sebelum jam pelajaran" },
-          { q: "Sikap 'tidak menunda-nunda' dan 'menyelesaikan tugas pada waktunya' adalah ciri siswa SMK yang mempraktikkan...", options: ["Tanggung Jawab atas tugas / Disiplin", "Kolaborasi tim", "Agile programming", "Pembelajaran berkelanjutan"], answer: "Tanggung Jawab atas tugas / Disiplin" },
-          { q: "Sesuai materi, mengapa kita perlu selalu belajar teknologi baru (pembelajaran berkelanjutan)?", options: ["Karena teknologi berubah dengan cepat", "Untuk mendapatkan sertifikat", "Agar bisa membuat game", "Sebagai syarat membuat SOP"], answer: "Karena teknologi berubah dengan cepat" }
+          // 1.1 Kecakapan Kerja (13 Soal)
+          { q: "Kemampuan yang harus dimiliki seseorang agar bisa bekerja dengan baik, produktif, dan profesional disebut...", options: ["Kecakapan kerja", "Etos kerja", "Budaya kerja", "SOP"], answer: "Kecakapan kerja" },
+          { q: "Kecakapan kerja secara umum terbagi menjadi dua, yaitu...", options: ["Hard Skills dan Soft Skills", "Skill Teknik dan Skill Teori", "Skill Fisik dan Skill Mental", "Skill Aktif dan Skill Pasif"], answer: "Hard Skills dan Soft Skills" },
+          { q: "Kemampuan teknis yang spesifik seperti coding, menginstal jaringan, dan desain grafis termasuk dalam kategori...", options: ["Hard Skills", "Soft Skills", "Etika Kerja", "Prosedur Kerja"], answer: "Hard Skills" },
+          { q: "Kemampuan interpersonal dan karakter seperti komunikasi, kerja tim, dan disiplin termasuk dalam...", options: ["Soft Skills", "Hard Skills", "Skill Fisik", "Skill Dasar"], answer: "Soft Skills" },
+          { q: "Salah satu alasan mengapa kecakapan kerja penting adalah dunia kerja yang kompetitif. Hal ini berarti perusahaan mencari orang yang tidak hanya pintar tetapi juga...", options: ["Profesional", "Pendiam", "Egois", "Kutu buku"], answer: "Profesional" },
+          { q: "Teknologi berubah dengan cepat, sehingga pekerja harus bisa belajar hal baru. Hal ini terkait dengan alasan kecakapan kerja yaitu...", options: ["Kemampuan beradaptasi", "Bekerja dalam tim", "Karir jangka panjang", "Dunia kompetitif"], answer: "Kemampuan beradaptasi" },
+          { q: "Dalam dunia kerja, soft skills sangat membantu untuk karir jangka panjang terutama untuk...", options: ["Naik jabatan", "Mendapat komputer baru", "Mengurangi jam kerja", "Menghindari teguran"], answer: "Naik jabatan" },
+          { q: "Siswa SMK yang menaati aturan dan datang ke sekolah tepat waktu adalah contoh penerapan kecakapan...", options: ["Disiplin", "Kreativitas", "Kerja Sama", "Komunikasi"], answer: "Disiplin" },
+          { q: "Bertanggung jawab atas tugas dengan menyelesaikan proyek dengan baik dan menjaga peralatan sekolah disebut kecakapan...", options: ["Tanggung Jawab", "Disiplin", "Komunikasi", "Inisiatif"], answer: "Tanggung Jawab" },
+          { q: "Kerja kelompok dan gotong royong membersihkan lab adalah perwujudan dari kecakapan...", options: ["Kerja Sama", "Kreativitas", "Etos Kerja", "Inisiatif"], answer: "Kerja Sama" },
+          { q: "Menyampaikan ide dengan jelas saat presentasi di depan kelas merupakan contoh kecakapan...", options: ["Komunikasi", "Etos Kerja", "Disiplin", "Tanggung Jawab"], answer: "Komunikasi" },
+          { q: "Berpikir 'out of the box' untuk membuat karya orisinal atau solusi unik adalah ciri dari...", options: ["Kreativitas", "Kerja Sama", "Disiplin", "Jujur"], answer: "Kreativitas" },
+          { q: "Rajin, ulet, belajar sungguh-sungguh, dan tidak mudah menyerah adalah perwujudan dari...", options: ["Etos Kerja", "Tanggung Jawab", "Komunikasi", "Respek"], answer: "Etos Kerja" },
+          
+          // 1.2 Profesi IT & Game Dev (9 Soal)
+          { q: "Profesi di bidang IT yang bertugas membuat aplikasi/software menggunakan coding dan logika adalah...", options: ["Programmer/Developer", "Network Engineer", "Database Administrator", "UI/UX Designer"], answer: "Programmer/Developer" },
+          { q: "Profesi yang tugas utamanya mengelola jaringan komputer, konfigurasi router, dan switch adalah...", options: ["Network Engineer", "System Analyst", "Game Developer", "IT Support"], answer: "Network Engineer" },
+          { q: "Mengelola database, menggunakan SQL, melakukan backup dan optimasi database adalah tugas dari...", options: ["Database Administrator", "UI/UX Designer", "Programmer", "QA Tester"], answer: "Database Administrator" },
+          { q: "Profesi yang menganalisis kebutuhan sistem dengan skill analisis, komunikasi, dan pemodelan adalah...", options: ["System Analyst", "Network Engineer", "IT Support", "Sound Designer"], answer: "System Analyst" },
+          { q: "Mendesain antarmuka aplikasi menggunakan Figma dan memperhatikan psikologi pengguna adalah tugas...", options: ["UI/UX Designer", "Database Administrator", "System Analyst", "Producer"], answer: "UI/UX Designer" },
+          { q: "Di ranah Game Development, merancang konsep, level, dan mekanik game adalah pekerjaan seorang...", options: ["Game Designer", "Game Programmer", "QA Tester", "Artist/Animator"], answer: "Game Designer" },
+          { q: "Profesi di Game Development yang bertugas menguji game untuk mencari bug adalah...", options: ["QA Tester", "Producer", "Sound Designer", "Game Programmer"], answer: "QA Tester" },
+          { q: "Kumpulan karya yang bisa ditunjukkan saat melamar kerja (seperti aplikasi, game, website) disebut...", options: ["Portofolio", "Sertifikasi", "Ijazah", "Surat Magang"], answer: "Portofolio" },
+          { q: "Lulusan IT disarankan memiliki kemampuan Bahasa Inggris karena...", options: ["Banyak dokumentasi dan tutorial berbahasa Inggris", "Syarat wajib membuat game", "Agar bisa merancang mekanik game", "Syarat mengelola database SQL"], answer: "Banyak dokumentasi dan tutorial berbahasa Inggris" },
+
+          // 1.3 K3 di Lingkungan IT (11 Soal)
+          { q: "K3 bertujuan melindungi pekerja dari kecelakaan dan penyakit akibat kerja. Apa kepanjangan dari K3?", options: ["Keselamatan dan Kesehatan Kerja", "Keamanan dan Ketertiban Kerja", "Kesehatan dan Kekuatan Kerja", "Keindahan dan Keselamatan Kerja"], answer: "Keselamatan dan Kesehatan Kerja" },
+          { q: "Bahaya kabel terbuka dan stop kontak overload di lab komputer masuk dalam jenis bahaya...", options: ["Listrik", "Ergonomi", "Kebakaran", "Debu"], answer: "Listrik" },
+          { q: "Posisi duduk salah dan monitor yang terlalu rendah merupakan contoh dari bahaya...", options: ["Ergonomi", "Kesehatan Mental", "Listrik", "Kebakaran"], answer: "Ergonomi" },
+          { q: "Bahaya kabel short (korsleting) atau perangkat overheat dapat mengakibatkan...", options: ["Kebakaran dan bahaya jiwa", "Nyeri punggung", "Depresi", "Alergi"], answer: "Kebakaran dan bahaya jiwa" },
+          { q: "Stres dan burnout di lingkungan IT berdampak pada...", options: ["Depresi, produktivitas turun", "Tersengat listrik", "Kerusakan alat", "Kerusakan perangkat keras"], answer: "Depresi, produktivitas turun" },
+          { q: "Debu yang menumpuk di dalam CPU dan keyboard berdampak pada...", options: ["Kerusakan perangkat dan alergi", "CVS dan nyeri punggung", "Tersengat listrik", "Kebakaran besar"], answer: "Kerusakan perangkat dan alergi" },
+          { q: "Untuk mencegah kecelakaan listrik, stop kontak di lab komputer harus dipastikan memiliki...", options: ["Grounding", "Cable ties", "Exhaust fan", "Stabilizer"], answer: "Grounding" },
+          { q: "Menurut langkah pencegahan, seberapa sering disarankan untuk istirahat, berdiri, dan peregangan?", options: ["Setiap 1 jam", "Setiap 3 jam", "Setiap 5 menit", "Hanya saat pulang"], answer: "Setiap 1 jam" },
+          { q: "Menurut 5 aturan safety di lab komputer, hal pertama yang harus dihindari di dekat komputer adalah...", options: ["Makan/minum", "Membuka browser", "Duduk", "Membersihkan meja"], answer: "Makan/minum" },
+          { q: "Jika menemukan kerusakan alat di lab komputer, aturan safety yang harus dilakukan adalah...", options: ["Melaporkan kerusakan ke guru/teknisi", "Memperbaiki sendiri", "Membiarkan saja", "Membuang alat tersebut"], answer: "Melaporkan kerusakan ke guru/teknisi" },
+          { q: "Setelah selesai menggunakan komputer di lab, aturan safety mengharuskan kita untuk...", options: ["Mematikan komputer", "Mencabut harddisk", "Membawa mouse pulang", "Membiarkan komputer menyala"], answer: "Mematikan komputer" },
+
+          // 1.4 Ergonomi di Depan Komputer (8 Soal)
+          { q: "Ilmu yang mempelajari cara bekerja yang nyaman dan aman agar tubuh tidak sakit disebut...", options: ["Ergonomi", "Anatomi", "K3", "Psikologi"], answer: "Ergonomi" },
+          { q: "Posisi monitor yang benar menurut prinsip ergonomi adalah...", options: ["Mata sejajar dengan bagian atas monitor", "Layar berada di bawah dada", "Monitor miring ke bawah 45 derajat", "Layar berada sangat dekat dengan mata"], answer: "Mata sejajar dengan bagian atas monitor" },
+          { q: "Menurut aturan posisi duduk yang benar, siku lengan sebaiknya membentuk sudut...", options: ["90°", "180°", "45°", "30°"], answer: "90°" },
+          { q: "Saat mengetik di depan komputer, bagaimana posisi pergelangan tangan yang paling benar dan sehat?", options: ["Pergelangan tangan lurus", "Ditekuk ke atas tajam", "Ditekuk ke bawah", "Menggantung di pinggir meja"], answer: "Pergelangan tangan lurus" },
+          { q: "Aturan 20-20-20 menyarankan agar kita melihat sejauh 20 kaki selama 20 detik setiap...", options: ["20 Menit", "20 Jam", "20 Detik", "20 Kali klik"], answer: "20 Menit" },
+          { q: "Akibat ergonomi buruk yang ditandai dengan mata lelah, kabur, dan sakit kepala disebut...", options: ["Computer Vision Syndrome (CVS)", "Carpal Tunnel Syndrome", "Text Neck", "Skoliosis"], answer: "Computer Vision Syndrome (CVS)" },
+          { q: "Nyeri pada pergelangan tangan akibat posisi kerja yang buruk dan terus-menerus disebut...", options: ["Carpal Tunnel Syndrome", "Text Neck", "CVS", "Nyeri Punggung"], answer: "Carpal Tunnel Syndrome" },
+          { q: "Leher dan bahu yang sakit akibat sering menunduk atau postur buruk disebut dengan istilah...", options: ["Text Neck", "CVS", "Carpal Tunnel", "Burnout"], answer: "Text Neck" },
+
+          // 1.5 Budaya Kerja & 1.6 SOP (9 Soal)
+          { q: "Kebiasaan dan perilaku yang dilakukan di tempat kerja disebut...", options: ["Budaya Kerja", "Hard Skills", "Portofolio", "Sertifikasi"], answer: "Budaya Kerja" },
+          { q: "Nilai budaya kerja berupa 'tidak berbohong dan mengakui kesalahan' adalah nilai...", options: ["Jujur", "Inisiatif", "Respek", "Agile"], answer: "Jujur" },
+          { q: "Sikap 'tidak menunggu perintah' dan 'aktif mencari solusi' merupakan contoh dari nilai budaya kerja...", options: ["Inisiatif", "Disiplin", "Tanggung Jawab", "Respek"], answer: "Inisiatif" },
+          { q: "Budaya bekerja perusahaan IT dengan siklus sprint (2-4 minggu) dan cepat beradaptasi dengan perubahan disebut budaya...", options: ["Agile", "Kolaborasi", "Pembelajaran Berkelanjutan", "Feedback"], answer: "Agile" },
+          { q: "Budaya perusahaan IT di mana kita terbuka terhadap kritik dan saran disebut...", options: ["Feedback", "Kolaborasi", "Agile", "Respek"], answer: "Feedback" },
+          { q: "Singkatan dari langkah-langkah baku untuk melakukan suatu pekerjaan adalah SOP. SOP singkatan dari...", options: ["Standar Operasional Prosedur", "Sistem Operasional Pusat", "Standar Output Perusahaan", "Sistem Organisasi Pekerjaan"], answer: "Standar Operasional Prosedur" },
+          { q: "Menurut contoh SOP dasar, langkah pertama yang dilakukan sebelum menyalakan komputer (menekan tombol power CPU) adalah...", options: ["Pastikan kabel listrik terhubung", "Masukkan username/password", "Tunggu desktop muncul", "Tutup semua aplikasi"], answer: "Pastikan kabel listrik terhubung" },
+          { q: "Dalam SOP mematikan komputer dengan benar, sebelum mengklik Start lalu Shutdown, kita wajib...", options: ["Tutup semua aplikasi yang terbuka", "Mencabut stop kontak", "Matikan layar monitor terlebih dulu", "Merestart CPU"], answer: "Tutup semua aplikasi yang terbuka" },
+          { q: "Menurut SOP penggunaan lab komputer, siswa harus datang tepat waktu, yaitu...", options: ["5 menit sebelum jam pelajaran", "Tepat saat bel berbunyi", "Setelah guru masuk", "15 menit sebelum sekolah buka"], answer: "5 menit sebelum jam pelajaran" }
         ];
 
         // ------------------------------------------------------------
@@ -256,8 +285,8 @@
             shuffledOptions: []
         };
 
-        const MAX_WRONG = 10;
-        const TOTAL_QUESTIONS = rawQuestionBank.length; // 30 questions
+        const MAX_WRONG = 15; // Diperbesar dari 10 ke 15 karena ada 50 soal
+        const TOTAL_QUESTIONS = rawQuestionBank.length; // 50 questions
         const root = document.getElementById('root');
 
         // ------------------------------------------------------------
@@ -296,7 +325,7 @@
                         </div>
                     </div>
                     <p class="mt-8 text-sm text-gray-500 max-w-sm">
-                        Ada ${TOTAL_QUESTIONS} soal yang diambil khusus dari materi Bab 1. Hati-hati dengan ${MAX_WRONG} batas kesalahan!
+                        Ada ${TOTAL_QUESTIONS} soal yang diambil 100% dari materi Bab 1. Hati-hati dengan ${MAX_WRONG} batas kesalahan!
                     </p>
                 </div>
             `;
@@ -392,7 +421,7 @@
                                 <p class="text-indigo-200 text-sm font-medium uppercase tracking-wider">Salah Maks. ${MAX_WRONG}</p>
                                 <div class="flex items-center gap-1 text-rose-300 font-bold text-lg justify-end">
                                     ${state.wrongCount} salah
-                                    <i class="fas fa-heart-crack ${state.wrongCount >= (MAX_WRONG - 2) ? 'animate-pulse text-rose-500' : ''}"></i>
+                                    <i class="fas fa-heart-crack ${state.wrongCount >= (MAX_WRONG - 3) ? 'animate-pulse text-rose-500' : ''}"></i>
                                 </div>
                             </div>
                         </div>
@@ -465,7 +494,7 @@
                             <i class="fas fa-trophy text-emerald-500 text-4xl"></i>
                         </div>
                         <h1 class="text-3xl font-extrabold text-gray-800 mb-2 relative z-10">Selesai, ${state.playerName}!</h1>
-                        <p class="text-gray-600 mb-6 font-medium relative z-10">Kamu berhasil menyelesaikan kuis Bab 1.</p>
+                        <p class="text-gray-600 mb-6 font-medium relative z-10">Kamu berhasil menyelesaikan kuis Bab 1 (50 Soal).</p>
                         
                         <div class="bg-slate-50 rounded-2xl p-6 mb-8 border border-slate-100 relative z-10 shadow-sm">
                             <p class="text-sm text-gray-500 font-bold uppercase tracking-widest mb-1">Skor Akhir</p>
