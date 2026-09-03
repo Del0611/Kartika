@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Interaktif IT - Bab 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .prose h3 { font-size: 1.25rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #1e293b; }
+        .prose p { margin-bottom: 1rem; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+        .prose li { margin-bottom: 0.5rem; }
+        .prose table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .prose th, .prose td { border: 1px solid #cbd5e1; padding: 0.5rem; text-align: left; }
+        .prose th { background-color: #f1f5f9; }
+        button { transition: all 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        // --- DATA MATERI BAB 2 ---
+        const materials = [
+          {
+            chapter: "2.1 & 2.2 Konsep Jaringan",
+            content: `
+              <p><strong>Jaringan komputer</strong> adalah kumpulan dua atau lebih komputer yang saling terhubung untuk berbagi data, sumber daya, dan informasi.</p>
+              <h3>Istilah Penting:</h3>
+              <ul>
+                <li><strong>Node:</strong> Perangkat yang terhubung (komputer, printer, smartphone).</li>
+                <li><strong>Server:</strong> Komputer penyedia layanan.</li>
+                <li><strong>Client:</strong> Komputer yang meminta layanan dari server.</li>
+                <li><strong>Topologi:</strong> Bentuk/struktur jaringan.</li>
+                <li><strong>Protokol:</strong> Aturan komunikasi.</li>
+                <li><strong>Bandwidth:</strong> Kapasitas kecepatan jaringan.</li>
+              </ul>
+              <h3>Tujuan & Manfaat:</h3>
+              <p>Berbagi data (file sharing), perangkat (printer bersama), komunikasi (email, chat), akses internet, dan keamanan (backup). Memberikan efisiensi dan biaya lebih murah. Namun memiliki kekurangan seperti kompleksitas pengelolan, keamanan (hacking/virus), dan ketergantungan (jika server down, semua terganggu).</p>
+            `
+          },
+          {
+            chapter: "2.3 Jenis Jaringan",
+            content: `
+              <ul>
+                <li><strong>LAN (Local Area Network):</strong> Mencakup area kecil (1 ruangan/gedung). Jarak kabel < 100m. Kecepatan 10 Mbps - 10 Gbps. Contoh: Lab komputer sekolah.</li>
+                <li><strong>MAN (Metropolitan Area Network):</strong> Mencakup area kota (10-50 km). Kecepatan 10-100 Mbps. Contoh: Jaringan antar sekolah di satu kota.</li>
+                <li><strong>WAN (Wide Area Network):</strong> Mencakup area luas (antar kota, negara, benua). Jarak > 50 km. Contoh: Jaringan bank antar cabang cabang, Internet.</li>
+                <li><strong>Internet:</strong> Kumpulan jaringan global yang menghubungkan miliaran perangkat di seluruh dunia.</li>
+              </ul>
+            `
+          },
+          {
+            chapter: "2.5 Topologi Jaringan",
+            content: `
+              <ul>
+                <li><strong>Bus:</strong> Semua terhubung ke satu kabel utama (backbone). Hemat kabel tapi jika kabel putus, semua jaringan mati.</li>
+                <li><strong>Star:</strong> Semua terhubung ke pusat (Switch/Hub). Jika satu PC mati, yang lain tetap hidup. Ini yang paling umum digunakan (sekolah, kantor). Kelemahannya sangat bergantung pada switch pusat.</li>
+                <li><strong>Ring:</strong> Berbentuk lingkaran. Tidak ada collision (benturan data). Kelemahan: jika satu mati, semua ikut mati.</li>
+                <li><strong>Mesh:</strong> Semua perangkat terhubung ke semua perangkat lain. Sangat handal (redundansi tinggi) dan cepat, tapi sangat mahal dan kompleks. Dipakai di militer/bank.</li>
+              </ul>
+            `
+          },
+          {
+            chapter: "2.4 & 2.6 Perangkat Keras",
+            content: `
+              <h3>Komponen Komputer:</h3>
+              <p>CPU (proses data), RAM (simpan data sementara), HDD (penyimpanan), dan <strong>NIC (Network Interface Card)</strong> yang menggunakan RJ45 (Kabel) atau WiFi. Cek NIC di Windows via Device Manager.</p>
+              <h3>Perangkat Jaringan:</h3>
+              <ul>
+                <li><strong>Hub:</strong> Layer 1 (Physical), mem-broadcast data ke semua port, tidak pintar.</li>
+                <li><strong>Switch:</strong> Layer 2 (Data Link), lebih pintar, kenal MAC Address, mengirim ke perangkat yang tepat (mengurangi collision).</li>
+                <li><strong>Router:</strong> Layer 3 (Network), kenal IP Address, bisa melakukan routing, dan menghubungkan LAN ke Internet.</li>
+                <li><strong>Access Point:</strong> Layer 2, menyediakan koneksi sinyal WiFi.</li>
+                <li><strong>Modem:</strong> Menghubungkan jaringan lokal ke ISP.</li>
+              </ul>
+            `
+          },
+          {
+            chapter: "2.7 & 2.8 IP Address & Kabel",
+            content: `
+              <h3>IP Address</h3>
+              <p>Alamat unik perangkat. <strong>IP Public:</strong> di internet (diberikan ISP). <strong>IP Private:</strong> jaringan lokal (contoh 192.168.1.10). <strong>Subnet Mask:</strong> memisahkan porsi Network dan Host (contoh 255.255.255.0 /24 menampung 254 host). Cek IP dengan <code>ipconfig</code> (Windows) atau <code>ifconfig</code> (Linux).</p>
+              <h3>Kabel Jaringan</h3>
+              <ul>
+                <li><strong>UTP:</strong> Ada 8 kabel dipilin, konektor RJ45. Maksimal 100m.</li>
+                <li><strong>STP:</strong> Sama dengan UTP tapi ada pelindung (shield) anti gangguan/interferensi.</li>
+                <li><strong>Fiber Optic:</strong> Menggunakan cahaya, sangat cepat, jarak hingga 100km, tanpa interferensi.</li>
+              </ul>
+              <p><strong>Standar Urutan UTP T568B:</strong> Putih-Oranye, Oranye, Putih-Hijau, Biru, Putih-Biru, Hijau, Putih-Coklat, Coklat.</p>
+            `
+          },
+          {
+            chapter: "2.9 Praktik Jaringan",
+            content: `
+              <p><strong>Alat Crimping:</strong> Tang crimping, Kabel UTP, Konektor RJ45, Tester.</p>
+              <p><strong>Straight Cable:</strong> Digunakan untuk perangkat BERBEDA (PC ke Switch). Ujung 1 dan 2 menggunakan urutan sama (T568B - T568B).</p>
+              <p><strong>Crossover Cable:</strong> Digunakan untuk perangkat SAMA (PC ke PC). Ujung 1 (T568B) dan ujung 2 (T568A).</p>
+              <p><strong>Perintah Ping:</strong> Mengetes koneksi (contoh: <code>ping 8.8.8.8</code>). <em>Reply from</em> = Berhasil. <em>Request timed out</em> = Koneksi bermasalah.</p>
+            `
+          }
+        ];
+
+        // --- BANK SOAL (50 SOAL FULL BAB 2) ---
+        const rawQuestionBank = [
+          // 2.1 Konsep Jaringan
+          { q: "Kumpulan dua atau lebih komputer yang saling terhubung untuk berbagi data dan sumber daya disebut...", options: ["Jaringan komputer", "Topologi", "Sistem operasi", "Basis data"], answer: "Jaringan komputer" },
+          { q: "Perangkat yang terhubung di dalam jaringan seperti komputer, printer, atau smartphone dikenal dengan istilah...", options: ["Node", "Server", "Bandwidth", "Protokol"], answer: "Node" },
+          { q: "Komputer yang bertugas menyediakan layanan bagi komputer lain dalam sebuah jaringan disebut...", options: ["Server", "Client", "Router", "Switch"], answer: "Server" },
+          { q: "Komputer yang meminta dan menggunakan layanan dari server disebut dengan istilah...", options: ["Client", "Node", "Hub", "Gateway"], answer: "Client" },
+          { q: "Bentuk, tata letak, atau struktur fisik dari sebuah jaringan komputer disebut...", options: ["Topologi", "Protokol", "Bandwidth", "Domain"], answer: "Topologi" },
+          { q: "Aturan-aturan yang mengatur komunikasi antar perangkat dalam jaringan disebut...", options: ["Protokol", "Topologi", "Subnetting", "Routing"], answer: "Protokol" },
+          { q: "Kapasitas maksimal kecepatan transfer data dalam sebuah jaringan dikenal dengan istilah...", options: ["Bandwidth", "Node", "Client", "IP Address"], answer: "Bandwidth" },
+
+          // 2.2 Manfaat & Tujuan
+          { q: "Menggunakan satu mesin printer untuk dicetak dari 10 komputer yang berbeda adalah contoh manfaat jaringan dalam hal...", options: ["Berbagi perangkat", "Berbagi data", "Keamanan", "Akses internet"], answer: "Berbagi perangkat" },
+          { q: "Salah satu kekurangan dari jaringan komputer jika server utama mengalami masalah (down) adalah...", options: ["Semua layanan jaringan terganggu (ketergantungan)", "Data akan terhapus otomatis", "Kecepatan internet naik drastis", "Kabel jaringan akan terputus"], answer: "Semua layanan jaringan terganggu (ketergantungan)" },
+          { q: "Contoh pemanfaatan jaringan komputer di bidang pendidikan adalah...", options: ["E-learning dan tugas online", "ATM dan mobile banking", "Tiket online dan GPS", "Rekam medis elektronik"], answer: "E-learning dan tugas online" },
+          { q: "Kelebihan utama jaringan komputer terkait efisiensi adalah...", options: ["Sumber daya bisa dipakai secara bersama-sama", "Harga komputer menjadi lebih murah", "Tidak perlu menggunakan sistem operasi", "Listrik menjadi lebih hemat"], answer: "Sumber daya bisa dipakai secara bersama-sama" },
+
+          // 2.3 Jenis Jaringan (LAN, MAN, WAN)
+          { q: "Jaringan komputer yang ruang lingkupnya hanya mencakup satu ruangan atau satu gedung saja disebut...", options: ["LAN", "MAN", "WAN", "PAN"], answer: "LAN" },
+          { q: "Jangkauan maksimal menggunakan media kabel tembaga (UTP) pada jaringan LAN umumnya adalah...", options: ["Kurang dari 100 meter", "Mencapai 10 kilometer", "50 kilometer", "Antar benua"], answer: "Kurang dari 100 meter" },
+          { q: "Jaringan yang menghubungkan beberapa LAN dalam sebuah kota (radius 10-50 km) adalah jenis jaringan...", options: ["MAN", "LAN", "WAN", "Internet"], answer: "MAN" },
+          { q: "Jaringan komputer yang menghubungkan kantor cabang antar provinsi, negara, bahkan benua disebut...", options: ["WAN", "LAN", "MAN", "WLAN"], answer: "WAN" },
+          { q: "Kumpulan dari banyak jaringan yang saling terhubung secara global di seluruh dunia adalah...", options: ["Internet", "LAN", "Intranet", "Extranet"], answer: "Internet" },
+
+          // 2.4 Perangkat Keras
+          { q: "Kartu fisik yang harus terpasang di motherboard agar komputer bisa terhubung menggunakan kabel jaringan adalah...", options: ["NIC (Network Interface Card)", "VGA Card", "Sound Card", "Capture Card"], answer: "NIC (Network Interface Card)" },
+          { q: "Untuk mengecek apakah NIC / Network Adapters sudah terdeteksi di Windows, kita dapat membukanya melalui...", options: ["Control Panel -> Device Manager", "Notepad", "Microsoft Word", "Task Manager"], answer: "Control Panel -> Device Manager" },
+          { q: "Port atau colokan yang digunakan untuk menghubungkan kabel jaringan ke NIC komputer disebut...", options: ["RJ45", "USB", "HDMI", "VGA"], answer: "RJ45" },
+
+          // 2.5 Topologi Jaringan
+          { q: "Topologi jaringan dimana semua komputer dihubungkan ke satu kabel utama (backbone) tunggal adalah...", options: ["Topologi Bus", "Topologi Star", "Topologi Ring", "Topologi Mesh"], answer: "Topologi Bus" },
+          { q: "Kelemahan paling fatal dari Topologi Bus adalah...", options: ["Jika kabel utama putus, semua jaringan ikut mati", "Biaya pemasangan sangat mahal", "Setiap komputer butuh switch sendiri", "Hanya bisa dipakai di jaringan besar"], answer: "Jika kabel utama putus, semua jaringan ikut mati" },
+          { q: "Topologi yang paling umum digunakan saat ini, yang mana semua perangkat terhubung ke satu alat pusat (Switch/Hub) adalah...", options: ["Topologi Star", "Topologi Bus", "Topologi Ring", "Topologi Mesh"], answer: "Topologi Star" },
+          { q: "Keuntungan utama menggunakan Topologi Star adalah...", options: ["Jika satu komputer mati, komputer lain tetap berjalan normal", "Tidak membutuhkan kabel sama sekali", "Bebas dari virus komputer", "Kecepatan internet otomatis menjadi Gigabit"], answer: "Jika satu komputer mati, komputer lain tetap berjalan normal" },
+          { q: "Kelemahan dari Topologi Star adalah...", options: ["Sangat bergantung pada switch, jika switch rusak semua mati", "Sulit menambah perangkat baru", "Sering terjadi collision", "Membutuhkan server yang mahal"], answer: "Sangat bergantung pada switch, jika switch rusak semua mati" },
+          { q: "Topologi yang menghubungkan perangkat membentuk lingkaran tertutup adalah...", options: ["Topologi Ring", "Topologi Star", "Topologi Bus", "Topologi Mesh"], answer: "Topologi Ring" },
+          { q: "Topologi yang tingkat keandalannya sangat tinggi (karena semua komputer terhubung ke semua komputer lainnya) disebut...", options: ["Topologi Mesh", "Topologi Ring", "Topologi Bus", "Topologi Star"], answer: "Topologi Mesh" },
+          { q: "Karena biaya sangat mahal, Topologi Mesh biasanya digunakan untuk kebutuhan...", options: ["Jaringan militer atau data center besar", "Warnet kecil", "Laboratorium sekolah dasar", "Jaringan rumahan"], answer: "Jaringan militer atau data center besar" },
+
+          // 2.6 Perangkat Jaringan (Hub, Switch, Router, dll)
+          { q: "Perangkat jaringan di Layer 1 yang sudah jarang dipakai karena meneruskan data (broadcast) ke semua port tanpa mengenali tujuan adalah...", options: ["Hub", "Switch", "Router", "Modem"], answer: "Hub" },
+          { q: "Perangkat pintar di Layer 2 (Data Link) yang bisa membaca MAC Address untuk mengirim data hanya ke tujuan spesifik adalah...", options: ["Switch", "Hub", "Kabel UTP", "VGA"], answer: "Switch" },
+          { q: "Perangkat yang berfungsi meneruskan paket data ke jaringan yang berbeda (Layer 3) dan menghubungkan LAN ke Internet adalah...", options: ["Router", "Switch", "Hub", "Access Point"], answer: "Router" },
+          { q: "Perangkat yang mengubah sinyal jaringan kabel (LAN) menjadi sinyal nirkabel (WiFi) untuk smartphone dan laptop adalah...", options: ["Access Point", "Hub", "Switch", "Router"], answer: "Access Point" },
+          { q: "Fungsi utama dari perangkat Modem adalah...", options: ["Menghubungkan jaringan lokal dengan ISP (Internet Service Provider)", "Memberikan IP Private ke semua komputer", "Mendinginkan server yang panas", "Membasmi virus di jaringan"], answer: "Menghubungkan jaringan lokal dengan ISP (Internet Service Provider)" },
+
+          // 2.7 IP Address
+          { q: "Deretan angka pengenal unik yang diberikan pada setiap perangkat di dalam jaringan disebut...", options: ["IP Address", "MAC Address", "Port Number", "Serial Number"], answer: "IP Address" },
+          { q: "Alamat IP yang bisa diakses dari mana saja di internet dan diberikan langsung oleh penyedia layanan (ISP) disebut...", options: ["IP Public", "IP Private", "IP Subnet", "IP Local"], answer: "IP Public" },
+          { q: "Contoh dari penggunaan IP Private yang biasa digunakan di dalam jaringan lokal (seperti rumah atau sekolah) adalah...", options: ["192.168.1.10", "8.8.8.8", "1.1.1.1", "202.134.1.10"], answer: "192.168.1.10" },
+          { q: "Angka yang menunjukkan batas antara porsi jaringan (network) dan porsi perangkat (host) pada sebuah IP adalah...", options: ["Subnet Mask", "Default Gateway", "DNS Server", "MAC Address"], answer: "Subnet Mask" },
+          { q: "Subnet mask 255.255.255.0 (/24) biasanya digunakan untuk jaringan kecil karena hanya dapat menampung maksimal...", options: ["254 host", "65.534 host", "16.777.214 host", "10 host"], answer: "254 host" },
+          { q: "Perintah yang diketik pada Command Prompt (Windows) untuk mengetahui alamat IP komputer kita adalah...", options: ["ipconfig", "ifconfig", "ping", "tracert"], answer: "ipconfig" },
+          { q: "Sedangkan pada sistem operasi Linux, perintah untuk melihat konfigurasi IP Address adalah...", options: ["ifconfig atau ip addr", "ipconfig", "dir", "ls"], answer: "ifconfig atau ip addr" },
+
+          // 2.8 Kabel Jaringan
+          { q: "Kabel jaringan yang paling umum digunakan untuk instalasi LAN, memiliki 8 kabel pilin di dalamnya disebut...", options: ["UTP (Unshielded Twisted Pair)", "Fiber Optic", "Coaxial", "STP (Shielded Twisted Pair)"], answer: "UTP (Unshielded Twisted Pair)" },
+          { q: "Perbedaan utama kabel STP dibandingkan dengan kabel UTP adalah...", options: ["STP memiliki pelindung logam (shield) untuk mencegah interferensi elektromagnetik", "STP lebih murah daripada UTP", "STP menggunakan cahaya bukan tembaga", "STP hanya berisi 4 kabel"], answer: "STP memiliki pelindung logam (shield) untuk mencegah interferensi elektromagnetik" },
+          { q: "Jenis media transmisi jaringan yang menggunakan pulsa cahaya untuk mengirimkan data dengan jarak puluhan kilometer adalah...", options: ["Fiber Optic", "UTP Cat6", "Kabel Coaxial", "Bluetooth"], answer: "Fiber Optic" },
+          { q: "Kecepatan maksimal kabel UTP kategori Cat6a adalah...", options: ["10 Gbps (Gigabit per detik)", "100 Mbps", "10 Mbps", "54 Mbps"], answer: "10 Gbps (Gigabit per detik)" },
+          { q: "Berdasarkan standar internasional T568B untuk penyusunan kabel UTP, urutan kabel pin nomor 1 dan 2 adalah...", options: ["Putih-Oranye, Oranye", "Putih-Hijau, Hijau", "Putih-Biru, Biru", "Putih-Coklat, Coklat"], answer: "Putih-Oranye, Oranye" },
+          { q: "Berdasarkan standar T568B, posisi kabel warna Biru dan Putih-Biru berada pada pin nomor...", options: ["4 dan 5", "1 dan 2", "3 dan 6", "7 dan 8"], answer: "4 dan 5" },
+
+          // 2.9 Praktik Jaringan
+          { q: "Alat mekanis yang digunakan untuk menjepit/memasang konektor RJ45 ke ujung kabel UTP disebut...", options: ["Tang Crimping", "Tang Kombinasi", "Obeng Plus", "Cable Tester"], answer: "Tang Crimping" },
+          { q: "Alat elektronik yang digunakan untuk mengecek apakah urutan kabel RJ45 sudah terhubung dengan benar di kedua ujungnya adalah...", options: ["Cable Tester", "Multitester", "Osiloskop", "Solder"], answer: "Cable Tester" },
+          { q: "Untuk menghubungkan perangkat yang BERBEDA jenis, misalnya Komputer ke Switch, jenis penyusunan kabel yang digunakan adalah...", options: ["Straight Cable", "Crossover Cable", "Rollover Cable", "Fiber Cable"], answer: "Straight Cable" },
+          { q: "Untuk menghubungkan dua perangkat yang SAMA jenisnya, misalnya Komputer langsung ke Komputer tanpa switch, kita menggunakan kabel...", options: ["Crossover Cable", "Straight Cable", "Kabel Coaxial", "USB Cable"], answer: "Crossover Cable" },
+          { q: "Pada kabel Straight, susunan warna standar di ujung pertama dan ujung kedua harus...", options: ["Sama persis (T568B di kedua ujung)", "Berbeda (T568B dan T568A)", "Dibalik total", "Diacak sesuai selera"], answer: "Sama persis (T568B di kedua ujung)" },
+          { q: "Perintah CLI untuk mengecek apakah komputer kita bisa berkomunikasi atau terhubung ke tujuan (contoh mengetes google) adalah...", options: ["ping", "ipconfig", "cd", "copy"], answer: "ping" },
+          { q: "Jika kita melakukan Ping ke sebuah IP dan hasilnya adalah 'Reply from 192.168.1.2...', hal itu menandakan bahwa...", options: ["Jaringan berhasil terhubung dan membalas pesan", "Tujuan tidak dapat ditemukan", "Kabel jaringan terputus di tengah jalan", "Perangkat tujuan sedang dimatikan"], answer: "Jaringan berhasil terhubung dan membalas pesan" },
+          { q: "Hasil tes Ping yang memunculkan tulisan 'Request timed out' (RTO) mengindikasikan bahwa...", options: ["Koneksi lambat, terputus, atau diblokir oleh sistem tujuan", "Jaringan 100% stabil", "Kabel terlalu pendek", "Komputer kita belum menyala"], answer: "Koneksi lambat, terputus, atau diblokir oleh sistem tujuan" }
+        ];
+
+        // --- KONFIGURASI GAME ---
+        const MAX_WRONG = 10;
+        const TOTAL_QUESTIONS = 50;
+        const TIME_LIMIT = 15 * 60; // 15 Menit dalam detik
+
+        let state = {
+            screen: 'home', 
+            playerName: '',
+            activeTab: 0,
+            questions: [],
+            currentQIndex: 0,
+            wrongCount: 0,
+            score: 0,
+            selectedAnswer: null,
+            shuffledOptions: [],
+            gameOverReason: '' 
+        };
+
+        let timerInterval = null;
+        let timeLeft = 0;
+
+        // --- UTILITY ---
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        // --- TIMER LOGIC ---
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeLeft = TIME_LIMIT;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const timerEl = document.getElementById('timer-display');
+                if (timerEl) {
+                    timerEl.innerText = formatTime(timeLeft);
+                    if (timeLeft <= 180) {
+                        timerEl.classList.remove('text-indigo-900');
+                        timerEl.classList.add('text-rose-600', 'animate-pulse');
+                    }
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    state.screen = 'gameover';
+                    state.gameOverReason = 'timeout';
+                    renderApp();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        // --- RENDER FUNCTIONS ---
+        const root = document.getElementById('root');
+
+        function renderHome() {
+            return `
+                <div class="flex flex-col items-center justify-center min-h-screen p-6 text-center animate-fade-in bg-slate-50">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border-t-8 border-indigo-600">
+                        <h1 class="text-3xl font-extrabold text-gray-800 mb-2">Kuis Bab 2 IT</h1>
+                        <p class="text-gray-500 mb-8">Dasar-Dasar Jaringan Komputer</p>
+                        
+                        <div class="relative mb-6">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <input id="playerNameInput" type="text"
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                                placeholder="Masukkan Namamu..."
+                                value="${state.playerName}"
+                                oninput="state.playerName = this.value"
+                            />
+                        </div>
+
+                        <div class="space-y-4">
+                            <button onclick="setScreen('material')" 
+                                class="w-full flex items-center justify-center gap-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-bold py-3 px-4 rounded-xl transition-all shadow-sm">
+                                <i class="fas fa-network-wired"></i> Pelajari Materi Jaringan
+                            </button>
+                            
+                            <button onclick="startQuiz()" 
+                                class="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-md transform hover:scale-105">
+                                <i class="fas fa-play"></i> Mulai Kuis Sekarang!
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-white/60 p-4 rounded-xl shadow-sm text-sm text-gray-600 max-w-md text-left">
+                        <p class="font-bold mb-2 border-b border-gray-200 pb-1"><i class="fas fa-circle-info text-indigo-500"></i> Aturan Main:</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Total soal <strong>50 butir</strong> dari materi Bab 2.</li>
+                            <li>Waktu pengerjaan maksimal <strong>15 Menit</strong>.</li>
+                            <li>Game Over jika waktu habis ATAU kamu melakukan <strong>10 Kesalahan</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMaterial() {
+            const tabsHtml = materials.map((mat, idx) => `
+                <button onclick="setActiveTab(${idx})" 
+                    class="w-full text-left p-3 rounded-lg transition-all text-sm font-medium ${state.activeTab === idx ? 'bg-indigo-600 text-white shadow-md' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}">
+                    ${mat.chapter}
+                </button>
+            `).join('');
+
+            return `
+                <div class="flex flex-col min-h-screen bg-gray-50 p-4 md:p-8 animate-fade-in">
+                    <div class="max-w-5xl mx-auto w-full bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row min-h-[85vh]">
+                        <div class="w-full md:w-1/3 bg-slate-800 text-white p-6 flex flex-col">
+                            <button onclick="setScreen('home')" class="flex items-center gap-2 text-slate-300 hover:text-white mb-8 transition-colors w-fit">
+                                <i class="fas fa-arrow-left"></i> Kembali
+                            </button>
+                            <h2 class="text-xl font-bold mb-6 border-b border-slate-600 pb-2">Materi Bab 2</h2>
+                            <div class="flex-1 space-y-2">
+                                ${tabsHtml}
+                            </div>
+                        </div>
+                        <div class="w-full md:w-2/3 p-6 md:p-10 overflow-y-auto max-h-[85vh] prose prose-indigo">
+                            <h2 class="text-2xl font-extrabold text-gray-800 mb-6 border-b pb-4">
+                                ${materials[state.activeTab].chapter}
+                            </h2>
+                            <div class="text-gray-700 leading-relaxed">
+                                ${materials[state.activeTab].content}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderQuiz() {
+            if (!state.questions.length) return '';
+            const question = state.questions[state.currentQIndex];
+            const progress = ((state.currentQIndex) / TOTAL_QUESTIONS) * 100;
+
+            let optionsHtml = state.shuffledOptions.map((opt) => {
+                let btnStyle = "bg-gray-50 border-gray-200 text-gray-700 hover:bg-indigo-50 hover:border-indigo-300";
+                let iconHtml = '';
+
+                if (state.selectedAnswer) {
+                    if (opt === question.answer) {
+                        btnStyle = "bg-emerald-100 border-emerald-500 text-emerald-800";
+                        iconHtml = '<i class="fas fa-check-circle text-emerald-600"></i>';
+                    } else if (opt === state.selectedAnswer) {
+                        btnStyle = "bg-rose-100 border-rose-500 text-rose-800";
+                        iconHtml = '<i class="fas fa-times-circle text-rose-600"></i>';
+                    } else {
+                        btnStyle = "bg-gray-50 border-gray-100 text-gray-400 opacity-50";
+                    }
+                }
+                const disabled = state.selectedAnswer ? 'disabled' : '';
+
+                return `
+                    <button ${disabled} onclick="handleAnswer('${opt}')" 
+                        class="w-full text-left p-4 rounded-xl border-2 font-medium transition-all flex justify-between items-center ${btnStyle}">
+                        <span>${opt}</span>
+                        ${iconHtml}
+                    </button>
+                `;
+            }).join('');
+
+            return `
+                <div class="flex flex-col min-h-screen bg-slate-100 p-4 md:p-8 items-center justify-center animate-fade-in">
+                    <div class="w-full max-w-3xl bg-white rounded-3xl shadow-xl overflow-hidden">
+                        
+                        <!-- Header Status -->
+                        <div class="bg-indigo-100 p-4 text-indigo-900 border-b border-indigo-200 grid grid-cols-3 items-center">
+                            <div class="text-left font-bold text-sm md:text-base truncate pr-2">
+                                <i class="fas fa-user text-indigo-500"></i> ${state.playerName}
+                            </div>
+                            
+                            <!-- TIMER DISPLAY -->
+                            <div class="text-center font-black text-2xl tracking-wider flex items-center justify-center gap-2">
+                                <i class="fas fa-clock text-indigo-400 text-lg"></i>
+                                <span id="timer-display">${formatTime(timeLeft)}</span>
+                            </div>
+
+                            <div class="text-right font-bold text-rose-600 text-sm md:text-base flex items-center justify-end gap-1">
+                                Salah: ${state.wrongCount}/${MAX_WRONG}
+                                <i class="fas fa-heart-crack ${state.wrongCount >= (MAX_WRONG-2) ? 'animate-pulse' : ''}"></i>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="w-full bg-slate-200 h-2">
+                            <div class="bg-emerald-500 h-2 transition-all duration-500" style="width: ${progress}%;"></div>
+                        </div>
+
+                        <!-- Question Area -->
+                        <div class="p-6 md:p-10">
+                            <div class="flex justify-between text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">
+                                <span>Soal ${state.currentQIndex + 1} / ${TOTAL_QUESTIONS}</span>
+                                <span>Skor: ${state.score}</span>
+                            </div>
+                            
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-8 min-h-[70px]">
+                                ${question.q}
+                            </h3>
+
+                            <div class="space-y-3">
+                                ${optionsHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderGameOver() {
+            let message = state.gameOverReason === 'timeout' 
+                ? "Waktu 15 menit kamu sudah habis!" 
+                : "Kamu telah mencapai batas maksimal 10 kesalahan.";
+                
+            return `
+                <div class="flex flex-col items-center justify-center min-h-screen p-6 text-center bg-rose-50 animate-fade-in">
+                    <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md border-t-8 border-rose-500">
+                        <div class="w-20 h-20 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas ${state.gameOverReason === 'timeout' ? 'fa-clock' : 'fa-heart-crack'} text-rose-500 text-4xl"></i>
+                        </div>
+                        <h1 class="text-4xl font-extrabold text-gray-800 mb-2">Game Over!</h1>
+                        <p class="text-gray-600 mb-6 font-medium">${message}</p>
+                        
+                        <div class="bg-gray-50 rounded-xl p-4 mb-8">
+                            <p class="text-sm text-gray-500 font-medium">Soal Terjawab Benar</p>
+                            <p class="text-3xl font-bold text-indigo-600">${state.score}</p>
+                        </div>
+
+                        <button onclick="setScreen('home')" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg transform hover:-translate-y-1">
+                            Kembali ke Awal
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderResult() {
+            const percentage = (state.score / TOTAL_QUESTIONS) * 100;
+            let grade = ""; let color = "";
+            if (percentage >= 90) { grade = "Luar Biasa!"; color = "text-emerald-600"; }
+            else if (percentage >= 70) { grade = "Bagus Sekali!"; color = "text-blue-600"; }
+            else if (percentage >= 50) { grade = "Cukup Baik."; color = "text-yellow-600"; }
+            else { grade = "Perlu Banyak Belajar!"; color = "text-rose-600"; }
+
+            return `
+                <div class="flex flex-col items-center justify-center min-h-screen p-6 text-center bg-indigo-50 animate-fade-in">
+                    <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md border-t-8 border-emerald-500">
+                        <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                            <i class="fas fa-trophy text-emerald-500 text-4xl"></i>
+                        </div>
+                        <h1 class="text-3xl font-extrabold text-gray-800 mb-2">Selesai, ${state.playerName}!</h1>
+                        <p class="text-gray-600 mb-6 font-medium">Kamu berhasil menyelesaikan kuis Bab 2.</p>
+                        
+                        <div class="bg-slate-50 rounded-2xl p-6 mb-8 border border-slate-100 shadow-sm">
+                            <p class="text-sm text-gray-500 font-bold uppercase tracking-widest mb-1">Skor Akhir</p>
+                            <p class="text-5xl font-black text-slate-800 mb-2">${state.score} <span class="text-2xl text-slate-400">/ ${TOTAL_QUESTIONS}</span></p>
+                            <p class="font-bold text-lg ${color}">${grade}</p>
+                            <p class="text-xs text-gray-400 mt-2">Waktu Tersisa: ${formatTime(timeLeft)}</p>
+                        </div>
+
+                        <button onclick="setScreen('home')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg transform hover:-translate-y-1">
+                            Main Lagi
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        let isRendering = false;
+        function renderApp() {
+            if (isRendering) return;
+            isRendering = true;
+            let html = '';
+            switch (state.screen) {
+                case 'home': html = renderHome(); break;
+                case 'material': html = renderMaterial(); break;
+                case 'quiz': html = renderQuiz(); break;
+                case 'gameover': html = renderGameOver(); break;
+                case 'result': html = renderResult(); break;
+            }
+            root.innerHTML = html;
+            isRendering = false;
+        }
+
+        // --- GLOBAL ACTIONS ---
+        window.setScreen = function(screen) {
+            stopTimer(); 
+            if (screen === 'home') {
+                state.screen = 'home';
+                state.questions = [];
+                state.currentQIndex = 0;
+                state.wrongCount = 0;
+                state.score = 0;
+                state.selectedAnswer = null;
+                state.gameOverReason = '';
+            } else {
+                state.screen = screen;
+            }
+            renderApp();
+        };
+
+        window.setActiveTab = function(idx) {
+            state.activeTab = idx;
+            renderApp();
+        };
+
+        window.startQuiz = function() {
+            if (!state.playerName.trim()) {
+                alert("Silakan masukkan namamu terlebih dahulu!");
+                return;
+            }
+            const shuffled = shuffleArray(rawQuestionBank);
+            state.questions = shuffled;
+            state.currentQIndex = 0;
+            state.wrongCount = 0;
+            state.score = 0;
+            state.selectedAnswer = null;
+            state.shuffledOptions = shuffleArray(shuffled[0].options);
+            state.screen = 'quiz';
+            
+            renderApp();
+            startTimer();
+        };
+
+        window.handleAnswer = function(option) {
+            if (state.selectedAnswer) return;
+
+            const correct = option === state.questions[state.currentQIndex].answer;
+            state.selectedAnswer = option;
+
+            if (correct) { state.score += 1; } 
+            else { state.wrongCount += 1; }
+
+            renderApp();
+
+            setTimeout(() => {
+                if (!correct && state.wrongCount >= MAX_WRONG) {
+                    stopTimer();
+                    state.screen = 'gameover';
+                    state.gameOverReason = 'mistakes';
+                    renderApp();
+                    return;
+                }
+                if (state.currentQIndex + 1 >= TOTAL_QUESTIONS) {
+                    stopTimer();
+                    state.screen = 'result';
+                    renderApp();
+                    return;
+                }
+                
+                state.currentQIndex += 1;
+                state.selectedAnswer = null;
+                state.shuffledOptions = shuffleArray(state.questions[state.currentQIndex].options);
+                renderApp();
+            }, 1200);
+        };
+
+        renderApp();
+    </script>
+</body>
+</html>
