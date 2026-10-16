@@ -1,7 +1,4 @@
-## Link website https://script.google.com/macros/s/AKfycbzd6ITx4IskKMFGyUqqiGMwE-XtSG3XPy1yVV08D0l1Bp3mExFlMgHBeCY2iWVRCTe4GQ/exec
-
-<img width="164" height="164" alt="image" src="https://github.com/user-attachments/assets/aa416b2c-dfe0-40f1-aaef-bdc1fd4bc0cd" />
-
+<img width="164" height="164" alt="image" src="https://github.com/user-attachments/assets/0088091b-036f-4770-9391-a10ddd18f313" />
 
 ## Link Aplikasi Exambro https://play.google.com/store/search?q=exambro&c=apps&hl=id
 
