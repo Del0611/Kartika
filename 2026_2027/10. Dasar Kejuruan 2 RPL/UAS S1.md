@@ -1,5 +1,8 @@
 ## Link website https://script.google.com/macros/s/AKfycbweGzonoAJi308yvurrNsNCCnA9tfKolCEufJHhjFbvhex19k1__NBbKxORC0faOLGCig/exec
 
+<img width="164" height="164" alt="image" src="https://github.com/user-attachments/assets/dcc3f7ea-7da6-48e1-b931-e05262039fdc" />
+
+
 | NIS | Nama | Username | Password |
 | --- | --- | --- | --- |
 | 268001 | A. AHMAD ZAKY | ujian268001 | 10RPL |
