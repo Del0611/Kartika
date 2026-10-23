@@ -1,4 +1,5 @@
-Link Ujian : https://script.google.com/macros/s/AKfycbxGixoN5falh-8LWWE22wYUypJ59saBxG0c6KQV4XAhkCtNxPzTI6C2FS_kmOQzWHU6pw/exec
+## Link Ujian : https://script.google.com/macros/s/AKfycbwwtY20PaGcAXTZSLjqCTLj-8x7c7j1-idhI90bVTlUvQy9xQ_vFDbFxczLmS72qbiDpw/exec
+
 
 | NIS | Nama | Username | Password |
 | --- | --- | --- | --- |
