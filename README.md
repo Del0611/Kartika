@@ -1,5 +1,8 @@
 # SMK_Kartika
 
+# LINK UJIAN https://script.google.com/macros/s/AKfycbxSGZiH3-nUkKRxhgtCr4U61lZp-o4OECaV08QVvkwXZ_OwlqpABPOJgHSZFNxXgcnTuA/exec
+Kelas 10 DKV
+
 Download File Github
 https://downgit.evecalm.com/#/home
 
