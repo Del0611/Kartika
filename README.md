@@ -1,6 +1,6 @@
 # SMK_Kartika
 
-## LINK UJIAN https://script.google.com/macros/s/AKfycbyJd29TJqMH_83QUNlyTobmOu1iNTpNb5oZpvh_LSA_Euxfva3on3k-eVRQFUlozgDY6A/exec
+## LINK UJIAN https://script.google.com/macros/s/AKfycbwqeJds-rVCrbuufmdRaJItuRffA044iNMzo0U4sLWvqf7fmKdMJuJ1fi6xkx-zB46yiA/exec
 Kelas 10 DKV
 
 Download File Github
